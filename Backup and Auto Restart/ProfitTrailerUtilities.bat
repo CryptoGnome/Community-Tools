@@ -18,8 +18,6 @@ set ramMB=512
 REM ===                                                    ===
 REM ==========================================================
 
-
-
 REM AUTO START ON PC CRASH/SHUTDOWN
 set SCRIPT="%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs"
 
