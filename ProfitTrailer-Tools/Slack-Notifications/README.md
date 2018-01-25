@@ -12,3 +12,7 @@
 6.	Click "Add Configuration", choose which channel to post to, and click "Add Incoming WebHooks integration".
 7.	Copy the "Webhook URL" to the clipboard.
 8.	Run the script by passing in the location of the log file and the webhook URL from step 7: ruby ProfitTrailerLogToSlack.rb "/path/to/ProfitTrail/logs/ProfitTrailer.log" "https://hooks.slack.com/services/ABCDEF/G12345H/IJKMNOPQRTUV"
+
+Example https://gyazo.com/1dfab88a2759a19a06682fa50cbc49f9
+
+If you need any help please PM @rireal#2742 on Discord
