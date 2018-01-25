@@ -3,8 +3,8 @@ var currency = "btc"; //btc or eth
 function estimate() {
 	$("#dtDcaLogs th.total-cost").text('Estimated Value');
 	$('.summary-table').removeClass('col-md-3').removeClass('col-md-4').addClass('col-md-4');
-	$.getJSON("https://www.cryptonator.com/api/ticker/" + currency + "-usd", function(data) {
-		var btc1 = data.ticker.price;
+	
+		var btc1 = $('#nMarketPrice').text();
 		//DCA
 		if (!$('#dtDcaLogs thead .est-usd').length) {
 			$('#dtDcaLogs thead tr').append('<th class="text-right est-usd all sorting" rowspan="1" colspan="1" style="width: 92px;">Estimated Value</th>');
@@ -133,11 +133,13 @@ function estimate() {
 		$("#salesLogDifference").prepend('<b style="color:#98a6ad;font-weight:400;margin-right:5px">($' + difference + ')</b>');
 		$("#salesLogTotalCurrentVal").prepend('<b style="color:#98a6ad;font-weight:400;margin-right:8px">($' + total + ')</b>');
 		$("#salesLogBoughtCost").prepend('<b style="color:#98a6ad;font-weight:400;margin-right:8px">($' + bought + ')</b>');
-	});
+
 }
 $("body").on('DOMSubtreeModified', "#dvLastUpdatedOn", function() {
 	estimate();
 });
 $(".dca-log, .pairs-log, .dust-log, .sales-log").on("click", function() {
-	estimate();
+	setTimeout(function(){
+		estimate();
+	}, 100);
 });
