@@ -7,5 +7,5 @@
 6. Paste the code in and save it
 7. To use more than one just follow steps 3-6 and paste after the first bit of code with a line between them!
 
-If you need any help please PM @ProfitTanker#0156 on Discord
+If you need any help please PM @aceangel#0565 on Discord
 
