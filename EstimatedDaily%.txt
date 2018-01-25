@@ -1,0 +1,35 @@
+//CODE TO SEE ESTIMATED DAILY % GAIN
+
+//SEE CODE AFTER!
+
+//1. Install https://chrome.google.com/webstore/detail/custom-javascript-for-web/poakhlngfciodnhlhhgnaaelnpjljija?utm_source=chrome-app-launcher-info-dialog
+
+//2. Go to your PT WEB GUI DCA LOG
+
+//3. Copy the code and then click the extention button. Then paste the code in and click save!
+
+//4. Profit!?!
+
+//https://gyazo.com/10e904ea0812d2af5713699b6cf81d9c
+
+//Created by @aceangel#0565 - If you need any help send me a DM.
+
+function estimatePercent() {
+    var todayPercentCalc = ($("#mTodayProfit").text()/$("#mTotalCurrentVal").text()*100).toFixed(2);
+    var todayPercent = todayPercentCalc + '%';
+    $(".usd-value").css({'margin-bottom':'0px'});
+    if ($("#mTodayProfit").text() !== "")
+    { 
+        if ($("#mTodayProfitPCTValue").text() === "") {
+        $("span.market-price-calculations.text-profittd").append('<label class="usd-value"><span class="full-text">Estimated Percent Gain&nbsp;</span><span class="short-text">Est. % Gain&nbsp;</span></label><span class="mb-0  main-text" id="mTodayProfitPCTValue" title="'+todayPercent+'">'+todayPercent+'</span>');
+        } else {
+            $("#mTodayProfitPCTValue").attr("title",todayPercent);
+            $("#mTodayProfitPCTValue").text(todayPercent);
+        }
+    }
+}
+
+estimatePercent();
+$("body").on('DOMSubtreeModified', "#mTodayProfitUSDValue", function() {
+    estimatePercent();
+});
