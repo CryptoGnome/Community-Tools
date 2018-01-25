@@ -12,9 +12,9 @@ https://docs.google.com/spreadsheets/d/1wYKVQOrAX2g7QX1CC4GvoSNzEVVK9d7wn6vojKyj
 
 JB Profit Trailer Tracker
 
-https://www.dropbox.com/s/akk66nhnvda03u3/Daily%20Trading%20Profit%20Log.xlsx?dl=0
+https://docs.google.com/spreadsheets/d/1zgrApNtPhr_BhoFxRoXi2kgEUiBJgFDVACaXP-lA6uU/edit?usp=sharing
 
 
 JB DCA Calculator 
 
-https://www.dropbox.com/s/o6hjg2dquj1qh0r/DCA%20and%20Cost%20affordability%20Calculator.xlsx?dl=0
+https://docs.google.com/spreadsheets/d/1_7rLK_lHS8MbTnVWebjorpjGLxV51Mz7N79fX1mBFKs/edit?usp=sharing
