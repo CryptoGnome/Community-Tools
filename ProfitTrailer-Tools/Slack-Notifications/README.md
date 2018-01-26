@@ -22,4 +22,8 @@
 
 Example https://gyazo.com/1dfab88a2759a19a06682fa50cbc49f9
 
-If you need any help please PM @rireal#2742 on Discord
+# If you need any help please PM @rireal#2742 on Discord
+
+# If you found the utility useful
+
+LTC: LL9jV5UBVPVGS5GUtGV8SemwZYHGq99ND1
