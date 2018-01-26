@@ -9,5 +9,8 @@
 
 Example https://gyazo.com/61217c1dd529b3c4238ba89920cec79b
 
-If you need any help please PM @aceangel#0565 on Discord
+# If you need any help please PM @aceangel#0565 on Discord
 
+# If you found the utility useful
+
+LTC: LZBtBVXY6HSQ9xvyipnwY4EEKQKApuq6Xt
