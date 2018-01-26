@@ -32,9 +32,9 @@ $(".dca-log, .pairs-log, .dust-log, .sales-log, .pending-log, .possible-buys-log
   setTimeout(function(){ binanceAdvancedExchange(); }, 100 );
 });
 
-//Binance-Advanced-Exchange.js
-//Binance-Advanced-Exchange.js
-//Binance-Advanced-Exchange.js
+//Estimated-Percent-Gain.js
+//Estimated-Percent-Gain.js
+//Estimated-Percent-Gain.js
 function estimatePercent() {
     var todayPercentCalc = ($("#mTodayProfit").text()/$("#mTotalCurrentVal").text()*100).toFixed(2);
     var todayPercent = todayPercentCalc + '%';
@@ -306,17 +306,15 @@ $("body").on('DOMSubtreeModified', "#mTodayProfitUSDValue", function() {
 //USD-Estimate.js
 //USD-Estimate.js
 //USD-Estimate.js
-var currency = "btc"; //btc or eth
-
 function estimate() {
+	var btc1 = $('#nMarketPrice').attr("title");
 	$("#dtDcaLogs th.total-cost").text('Estimated Value');
 	$('.summary-table').removeClass('col-md-3').removeClass('col-md-4').addClass('col-md-4');
-	$.getJSON("https://www.cryptonator.com/api/ticker/" + currency + "-usd", function(data) {
-		var btc1 = data.ticker.price;
-		//DCA
-		if (!$('#dtDcaLogs thead .est-usd').length) {
+	//DCA
+	if ($('#dtDcaLogs thead').length > 0) {
+		if ($('#dtDcaLogs thead .est-usd').length < 1) {
 			$('#dtDcaLogs thead tr').append('<th class="text-right est-usd all sorting" rowspan="1" colspan="1" style="width: 92px;">Estimated Value</th>');
-		}
+		};
 		$('#dtDcaLogs tbody tr').each(function() {
 			$(this).find('.est-usd').remove();
 			$(this).append('<td class="text-right est-usd all"></td>');
@@ -350,8 +348,10 @@ function estimate() {
 		$("#dcLogDifference").prepend('<b style="color:#98a6ad;font-weight:400;margin-right:5px">($' + difference + ')</b>');
 		$("#dcLogTotalCurrentVal").prepend('<b style="color:#98a6ad;font-weight:400;margin-right:8px">($' + total + ')</b>');
 		$("#dcLogRealCost").prepend('<b style="color:#98a6ad;font-weight:400;margin-right:8px">($' + bought + ')</b>');
-		//Pairs
-		if (!$('#dtPairsLogs thead .est-usd').length) {
+	}
+	//Pairs
+	if ($('#dtPairsLogs thead').length > 0) {
+		if ($('#dtPairsLogs thead .est-usd').length < 1) {
 			$('#dtPairsLogs thead tr').append('<th class="text-right est-usd all sorting" rowspan="1" colspan="1" style="width: 92px;">Estimated Value</th>');
 		}
 		$('#dtPairsLogs tbody tr').each(function() {
@@ -387,8 +387,10 @@ function estimate() {
 		$("#pairsLogDifference").prepend('<b style="color:#98a6ad;font-weight:400;margin-right:5px">($' + difference + ')</b>');
 		$("#pairsLogTotalCurrentVal").prepend('<b style="color:#98a6ad;font-weight:400;margin-right:8px">($' + total + ')</b>');
 		$("#pairsLogRealCost").prepend('<b style="color:#98a6ad;font-weight:400;margin-right:8px">($' + bought + ')</b>');
-		//Dust
-		if (!$('#dtDustLogs thead .est-usd').length) {
+	}
+	//Dust
+	if ($('#dtDustLogs thead').length > 0) {
+		if ($('#dtDustLogs thead .est-usd').length < 1) {
 			$('#dtDustLogs thead tr').append('<th class="text-right est-usd all sorting" rowspan="1" colspan="1" style="width: 92px;">Estimated Value</th>');
 		}
 		$('#dtDustLogs tbody tr').each(function() {
@@ -424,7 +426,9 @@ function estimate() {
 		$("#dustLogDifference").prepend('<b style="color:#98a6ad;font-weight:400;margin-right:5px">($' + difference + ')</b>');
 		$("#dustLogTotalCurrentVal").prepend('<b style="color:#98a6ad;font-weight:400;margin-right:8px">($' + total + ')</b>');
 		$("#dustLogRealCost").prepend('<b style="color:#98a6ad;font-weight:400;margin-right:8px">($' + bought + ')</b>');
-		//Sales
+	}
+	//Sales
+	if ($('#dtSalesLog thead').length > 0) {
 		$("#salesLogDifference").find('b').remove();
 		$("#salesLogTotalCurrentVal").find('b').remove();
 		$("#salesLogBoughtCost").find('b').remove();
@@ -441,11 +445,37 @@ function estimate() {
 		$("#salesLogDifference").prepend('<b style="color:#98a6ad;font-weight:400;margin-right:5px">($' + difference + ')</b>');
 		$("#salesLogTotalCurrentVal").prepend('<b style="color:#98a6ad;font-weight:400;margin-right:8px">($' + total + ')</b>');
 		$("#salesLogBoughtCost").prepend('<b style="color:#98a6ad;font-weight:400;margin-right:8px">($' + bought + ')</b>');
-	});
+	}	
+	//Balance
+	$('.ticker-text').css('position','relative');
+	$('#nBalanceVal span').remove();
+	var btc = $('#nBalanceVal').attr("title");
+	var usd = btc * btc1;
+	var total = usd.toFixed(2);
+	$('#nBalanceVal').append('<span style="display:inline-block;position:absolute;bottom:-8px;right:0;font-size: 10px">($'+total+')</span>');
+	//Current
+	$('#nTotalCurrentVal span').remove();
+	var btc = $('#nTotalCurrentVal').attr("title");
+	var usd = btc * btc1;
+	var total = usd.toFixed(2);
+	$('#nTotalCurrentVal').append('<span style="display:inline-block;position:absolute;bottom:-8px;right:0;font-size: 10px">($'+total+')</span>');
+	//Pending
+	$('#nTotalPendingVal span').remove();
+	var btc = $('#nTotalPendingVal').attr("title");
+	var usd = btc * btc1;
+	var total = usd.toFixed(2);
+	$('#nTotalPendingVal').append('<span style="display:inline-block;position:absolute;bottom:-8px;right:0;font-size: 10px">($'+total+')</span>');
 }
 $("body").on('DOMSubtreeModified', "#dvLastUpdatedOn", function() {
 	estimate();
 });
 $(".dca-log, .pairs-log, .dust-log, .sales-log").on("click", function() {
-	estimate();
+	setTimeout(function() {
+		estimate();
+	}, 100);
+});
+$( document ).ready(function() {
+	setTimeout(function() {
+		estimate();
+	}, 100);
 });
