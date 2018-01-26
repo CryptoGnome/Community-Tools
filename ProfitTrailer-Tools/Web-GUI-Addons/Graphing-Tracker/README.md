@@ -7,7 +7,7 @@
 6. Paste the code in and save it
 7. To use more than one just follow steps 3-6 and paste after the first bit of code with a line between them!
 
-Example https://gyazo.com/5d2d835f2e7a82da6d7d3e22c567f140
+Example https://gyazo.com/4ad09dac0398a15996b95ec097428a2b
 
 # If you need any help please PM @Sokol#6328 on Discord
 
