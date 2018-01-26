@@ -7,5 +7,8 @@
 6. Paste the code in and save it
 7. To use more than one just follow steps 3-6 and paste after the first bit of code with a line between them!
 
-If you need any help please PM @rireal#2742 on Discord
+# If you need any help please PM @rireal#2742 on Discord
 
+# If you found the utility useful
+
+LTC: LL9jV5UBVPVGS5GUtGV8SemwZYHGq99ND1
