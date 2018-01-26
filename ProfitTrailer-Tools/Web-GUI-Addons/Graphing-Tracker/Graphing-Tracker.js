@@ -1,6 +1,31 @@
 (function(){
 	var util = {};
 
+	//=========================================
+	//===============  SETTINGS  ==============
+	//=========================================
+
+	util.graphMinutes = 15; //how many minutes of graph to show?
+	util.extendGraphColumn = true; //if you set more than 10 minutes, set this to true.
+	util.drawZeroLine = true; //display line at purchase price
+	util.drawSellThreshold = true; //draw
+	util.zeroLineColor = '#333';
+	util.sellThresholdColor = '#ff5';
+	util.graphLineColor = '#00f';
+
+	// --- border percentages add padding to the top or bottom of the graph based on the height of the box.
+	// --- the percentages are percent out of the original max to min spread.
+
+	util.topOffsetPercentage = 2; // value between 60 and 2;
+	util.bottomOffsetPercentage = 2; // value between 60 and 2;
+	//=========================================
+	//===========  END SETTINGS  ==============
+	//=========================================
+
+	util.topOffsetPercentage = Math.min( 60, Math.max( 2, util.topOffsetPercentage ));
+	util.bottomOffsetPercentage = Math.min( 60, Math.max( 2, util.bottomOffsetPercentage ));
+	util.graphFrames = ((util.graphMinutes || 5) * 6) >> 0;
+
 	util.createHiDPICanvas = function( w, h, ratio, elementUse ) {
 		if( !window.PIXEL_RATIO ) {
 		    window.PIXEL_RATIO = ( function () {
@@ -25,13 +50,16 @@
 	    return can;
 	};
 
-	util.graph = function() {
+	util.graph = function( drawZero, drawProfit ) {
 		this.stats = {
-			totalSamples: 30,
+			totalSamples: util.graphFrames,
+			profitLine: .01,
 			data: []
 		};
 		this.stats.data = new Array( this.stats.totalSamples );
 		this.stats.data = this.stats.data.join( ',' ).split( ',' ).map( function() { return null; });
+		this.drawZero = drawZero;
+		this.drawProfit = drawProfit;
 	};
 
 	util.graph.prototype.setSelector = function( selector ) {
@@ -52,16 +80,25 @@
 		this.canvas = canvas;
 	};
 
-	util.graph.prototype.rangePad = .02;
-
-	util.graph.prototype.updateStats = function( value ) {
+	util.graph.prototype.updateStats = function( value, sellTrigger ) {
 		this.stats.data.push( value );
+		this.stats.profitLine = sellTrigger;
 		this.stats.data.shift(); // remove the oldest value
 	};
 
 	util.graph.prototype.drawStats = function() {
 		var ctx = util.canvasContext;
 		var size = this.destination.getBoundingClientRect()
+		var totalRun = this.stats.totalSamples;
+		if( totalRun < 2 ) {
+			console.warn('please set valid number for util.graphMinutes (more than .17)');
+			return;
+		}
+
+		if( util.extendGraphColumn && size.width < totalRun ) {
+			this.destination.style['width'] = totalRun+'px';
+			size.width = totalRun;
+		}
 
 		if( util.canvas == undefined || util.canvas.height == undefined ) {
 			return;
@@ -72,11 +109,7 @@
 			util.canvasContext = util.canvas.getContext( '2d' );
 		}
 		ctx.clearRect( 0, 0, size.width, size.height );
-		ctx.strokeStyle = '#000';
-		ctx.lineWidth = 2;
-		ctx.beginPath();
 		var first = true;
-		var totalRun = this.stats.totalSamples;
 		var range = { min: 1e8, max: -1e8, size: 0 };
 		this.stats.data.forEach( function( c ){
 			if( c !== null ) {
@@ -85,19 +118,58 @@
 			}
 		});
 
-		range.min -= this.rangePad; //pad range size
-		range.max += this.rangePad; //pad range size
+		if( this.drawZero ) {
+			range.min = Math.min( range.min, 0 );
+			range.max = Math.max( range.max, 0 );
+		}
+
+		if( this.drawProfit ) {
+			range.max = Math.max( range.max, this.stats.profitLine );
+			range.min = Math.min( range.min, this.stats.profitLine );
+		}
+
 		range.size = range.max - range.min;
 
+		range.max += range.size * (util.topOffsetPercentage / 100);
+		range.min -= range.size * (util.bottomOffsetPercentage / 100);
+
+		range.size = range.max - range.min;
+
+		if( util.drawZeroLine && this.drawZero ) {
+			var percent = Math.abs(range.max - 0) / range.size;
+			ctx.strokeStyle = util.zeroLineColor;
+			ctx.fillStyle = util.zeroLineColor;
+			ctx.lineWidth = 1;
+			ctx.font = '12px calibri';
+			ctx.fillText( '0%', 0, percent * size.height >> 0 );
+			ctx.beginPath();
+			ctx.moveTo( 20, percent * size.height );
+			ctx.lineTo( size.width, percent * size.height >> 0 );
+			ctx.stroke();
+		}
+
+		if( util.drawSellThreshold && this.drawProfit ) {
+			var percent = Math.abs(range.max - this.stats.profitLine) / range.size;
+			ctx.strokeStyle = util.sellThresholdColor;
+			ctx.lineWidth = 1;
+			ctx.beginPath();
+			ctx.moveTo( 0, percent * size.height );
+			ctx.lineTo( size.width, percent * size.height );
+			ctx.stroke();
+		}
+
+		ctx.strokeStyle = util.graphLineColor;
+		ctx.lineWidth = 1;
+		ctx.beginPath();
 		var first = true;
 		var index = 0;
 		for( var i = 0; i < totalRun; i++ ) {
 			if( this.stats.data[i] != null ) {
 				if( first ) {
 					first = false;
-					ctx.moveTo( index/totalRun * size.width, size.height - (( this.stats.data[i] - range.min ) / range.size * size.height ));
+					ctx.moveTo( (index/(totalRun-1) * size.width) >> 0, (size.height - (( this.stats.data[i] - range.min ) / range.size * size.height )) >> 0);
 				} else {
-					ctx.lineTo( index/totalRun * size.width, size.height - (( this.stats.data[i] - range.min ) / range.size * size.height ));
+					ctx.lineTo( (index/(totalRun-1) * size.width) >> 0, (size.height - (( this.stats.data[i] - range.min ) / range.size * size.height )) >> 0);
 				}
 				index++;
 			}
@@ -116,6 +188,8 @@
 			name: 'dtDcaLogs',
 			statName: 'profit',
 			childDestination: 'profit',
+			drawZero: true,
+			drawProfit: true,
 			pairAppend: ''
 		},
 		pairs: {
@@ -123,6 +197,8 @@
 			name: 'dtPairsLogs',
 			statName: 'profit',
 			childDestination: 'profit',
+			drawZero: true,
+			drawProfit: true,
 			pairAppend: ''
 		},
 		pbl: {
@@ -130,6 +206,8 @@
 			name: 'dtPossibleBuysLog',
 			statName: 'currentValue',
 			childDestination: 'current-value',
+			drawZero: false,
+			drawProfit: false,
 			pairAppend: '_PBL'
 		},
 		dust: {
@@ -137,6 +215,8 @@
 			name: 'dtDustLogs',
 			statName: 'profit',
 			childDestination: 'profit',
+			drawZero: true,
+			drawProfit: false,
 			pairAppend: '_DUST'
 		},
 		pending: {
@@ -144,13 +224,15 @@
 			name: 'dtPendingLogs',
 			statName: 'profit',
 			childDestination: 'profit',
+			drawZero: true,
+			drawProfit: true,
 			pairAppend: '_PEND'
 		}
 	};
 
 	var pairData = {};
 
-	var freshPairCutoff = 30000;
+	var freshPairCutoff = 60000;
 	function tick( data ) {
 		var now = Date.now();
 		var keys = Object.keys( pairData );
@@ -168,12 +250,15 @@
 				if( pairData[pair] == undefined ) {
 					pairData[pair] = {
 						lastTick: now,
-						graph: new util.graph()
+						graph: new util.graph( containers[dataTypes[i]].drawZero, containers[dataTypes[i]].drawProfit )
 					};
 				} else {
 					pairData[pair].lastTick = now;
 				}
-				pairData[pair].graph.updateStats( source[j][containers[dataTypes[i]].statName] / 100 );
+				pairData[pair].graph.updateStats(
+					source[j][containers[dataTypes[i]].statName] / 100, //current profit
+					(source[j].triggerValue || 0) / 100 //sell threshold
+				);
 			}
 		}
 	}
