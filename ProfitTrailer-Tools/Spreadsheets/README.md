@@ -15,3 +15,7 @@ https://docs.google.com/spreadsheets/d/1zgrApNtPhr_BhoFxRoXi2kgEUiBJgFDVACaXP-lA
 # @JBHitman 💣#2014 DCA Calculator
 
 https://docs.google.com/spreadsheets/d/1_7rLK_lHS8MbTnVWebjorpjGLxV51Mz7N79fX1mBFKs/edit?usp=sharing
+
+# @Aqua#0247 Detailed Profit Trailer Tracker
+
+https://docs.google.com/spreadsheets/d/1HI9LhQPz-L3I36W9aVs30gERGIxlqF0mUg9rLsP96pc/edit?usp=sharing
