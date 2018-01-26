@@ -11,4 +11,8 @@ Instructions:
 4. Change RUN_INTERVAL_IN_MINUTES=10 and ramMB=512
 5. Save & run this file! No need to start ProfitTrailer! This will do so by itself!
 
-If you need any help please PM @Tom#3368 or @Aqua#0247 on Discord
+# If you need any help please PM @Aqua#0247 on Discord
+
+# If you found the utility useful
+
+LTC: LWMMsRPXkXmB2H2f5qPJ8Tqt7h3S7SELxq
