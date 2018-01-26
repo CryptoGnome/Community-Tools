@@ -9,4 +9,8 @@
 
 Example https://gyazo.com/e9e6376813e2e5c5d93f27a9d0eadea5
 
-If you need any help please PM @Sokol#6328 on Discord
+# If you need any help please PM @Sokol#6328 on Discord
+
+# If you found the utility useful
+
+LTC: LNpicahdGTFpuXNEhTVoUErPb6EEjBdmwg
