@@ -22,4 +22,5 @@ https://docs.google.com/spreadsheets/d/1HI9LhQPz-L3I36W9aVs30gERGIxlqF0mUg9rLsP9
 
 # @RunJumpFly#6562 Profit Trailer Tracker
 
-https://nofile.io/f/ASzYwOpYQvt/Zero2Hero1.2.xlsx
+https://docs.google.com/spreadsheets/d/1_Zuy2fVeZq3JjK3mGMeniTcueL8ZQnOh2azLgOkog9U/edit?usp=sharing
+
