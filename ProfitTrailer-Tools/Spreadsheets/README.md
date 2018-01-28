@@ -19,3 +19,7 @@ https://docs.google.com/spreadsheets/d/1_7rLK_lHS8MbTnVWebjorpjGLxV51Mz7N79fX1mB
 # @Aqua#0247 Detailed Profit Trailer Tracker
 
 https://docs.google.com/spreadsheets/d/1HI9LhQPz-L3I36W9aVs30gERGIxlqF0mUg9rLsP96pc/edit?usp=sharing
+
+# @RunJumpFly#6562 Profit Trailer Tracker
+
+https://nofile.io/f/ASzYwOpYQvt/Zero2Hero1.2.xlsx
