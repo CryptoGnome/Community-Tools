@@ -25,6 +25,8 @@
 	//===========  END SETTINGS  ==============
 	//=========================================
 
+
+	util.msPerDataFrame = 10777;
 	util.topOffsetPercentage = Math.min( 60, Math.max( 2, util.topOffsetPercentage ));
 	util.bottomOffsetPercentage = Math.min( 60, Math.max( 2, util.bottomOffsetPercentage ));
 	util.graphFrames = ((util.graphMinutes || 5) * 6) >> 0;
@@ -93,10 +95,6 @@
 		var ctx = util.canvasContext;
 		var size = this.destination.getBoundingClientRect()
 		var totalRun = this.stats.totalSamples;
-		if( totalRun < 2 ) {
-			console.warn('please set valid number for util.graphMinutes (more than .17)');
-			return;
-		}
 
 		if( util.extendGraphColumn && size.width < totalRun ) {
 			this.destination.style['width'] = totalRun+'px';
@@ -144,10 +142,10 @@
 			ctx.fillStyle = util.zeroLineColor;
 			ctx.lineWidth = 1;
 			ctx.font = '12px calibri';
-			ctx.fillText( '0%', 0, percent * size.height >> 0 );
+			ctx.fillText( '0%', 0, (percent * size.height >> 0) + .5 );
 			ctx.beginPath();
-			ctx.moveTo( 20, percent * size.height );
-			ctx.lineTo( size.width, percent * size.height >> 0 );
+			ctx.moveTo( 20, (percent * size.height >> 0) + .5 );
+			ctx.lineTo( size.width, (percent * size.height >> 0) + .5 );
 			ctx.stroke();
 		}
 
@@ -156,8 +154,8 @@
 			ctx.strokeStyle = util.sellThresholdColor;
 			ctx.lineWidth = 1;
 			ctx.beginPath();
-			ctx.moveTo( 0, percent * size.height );
-			ctx.lineTo( size.width, percent * size.height );
+			ctx.moveTo( 0, (percent * size.height >> 0) +.5 );
+			ctx.lineTo( size.width, (percent * size.height >> 0) +.5 );
 			ctx.stroke();
 		}
 
@@ -167,12 +165,18 @@
 		var first = true;
 		var index = 0;
 		for( var i = 0; i < totalRun; i++ ) {
-			if( this.stats.data[i] != null ) {
+			if( this.stats.data[i] != null && this.stats.data[i] != '' ) {
 				if( first ) {
 					first = false;
-					ctx.moveTo( (index/(totalRun-1) * size.width) >> 0, (size.height - (( this.stats.data[i] - range.min ) / range.size * size.height )) >> 0);
+					ctx.moveTo( (index/totalRun * size.width) , (size.height - (( this.stats.data[i] - range.min ) / range.size * size.height )));
 				} else {
-					ctx.lineTo( (index/(totalRun-1) * size.width) >> 0, (size.height - (( this.stats.data[i] - range.min ) / range.size * size.height )) >> 0);
+					ctx.lineTo( (index/totalRun * size.width) , (size.height - (( this.stats.data[i] - range.min ) / range.size * size.height )));
+				}
+				index++;
+			} else if( this.stats.data[i] == '' ) {
+				if( !first ) {
+					ctx.stroke();
+					first = true;
 				}
 				index++;
 			}
@@ -255,6 +259,10 @@
 						lastTick: now,
 						graph: new util.graph( containers[dataTypes[i]].drawZero, containers[dataTypes[i]].drawProfit )
 					};
+					var cachedData = getCacheData( pair );
+					for( var z = 0; z < cachedData.length; z++ ) {
+						pairData[pair].graph.updateStats( cachedData[z], 0 );
+					}
 				} else {
 					pairData[pair].lastTick = now;
 				}
@@ -262,6 +270,7 @@
 					source[j][containers[dataTypes[i]].statName] / 100, //current profit
 					(source[j].triggerValue || 0) / 100 //sell threshold
 				);
+				setCacheData( pair, pairData[pair].graph.stats.data, pairData[pair].lastTick );
 			}
 		}
 	}
@@ -286,6 +295,48 @@
 				return; // --- we rendered this one, dont render any others.
 			}
 		}
+	}
+
+	function setCacheData( key, values, lastTick ) {
+		var graphing = localStorage.getItem('graphing');
+		if( graphing == null ) {
+			graphing = {};
+		} else {
+			graphing = JSON.parse( graphing );
+		}
+
+		var store = [];
+		for( var i = 0; i < values.length; i++ ) {
+			if( values[i] == null || values[i] == '' ) {
+				store.push('');
+			} else {
+				store.push(parseFloat(values[i].toFixed(4)));
+			}
+		}
+
+		graphing[key] = {time: lastTick, values: store};
+
+		localStorage.setItem( 'graphing', JSON.stringify( graphing ));
+	}
+
+	function getCacheData( key ) {
+		var graphing = localStorage.getItem('graphing');
+		if( graphing == null ) {
+			graphing = {};
+		} else {
+			graphing = JSON.parse( graphing );
+		}
+
+		if( graphing[key] != undefined ) {
+			var elapsedTime = Date.now() - graphing[key].time;
+			var ticksElapsed = (elapsedTime / util.msPerDataFrame) >> 0;
+			var results = graphing[key].values;
+			for( var i = 0; i < ticksElapsed; i++ ) {
+				results.push('');
+			}
+			return results;
+		}
+		return [];
 	}
 
 	// listen to AJAX requests:
@@ -369,6 +420,21 @@ $(".dca-log, .pairs-log, .dust-log, .sales-log, .pending-log, .possible-buys-log
 //Estimated-Percent-Gain.js
 //Estimated-Percent-Gain.js
 //Estimated-Percent-Gain.js
+function estimateYesterdayPercent() {
+    var previousTCV = $("#mTotalCurrentVal").text() - $("#mTodayProfit").text();
+    var prevPercentCalc = ($("#mYesterdayProfit").text()/previousTCV*100).toFixed(2);
+    var prevPercent = prevPercentCalc + '%';
+    if ($("#mYesterdayProfit").text() !== "")
+    { 
+        if ($("#mYesterdayProfitPCTValue").text() === "") {
+        $("span.market-price-calculations.text-profityd").append('<br><label class="usd-value"><span class="full-text">Estimated Percent Gain&nbsp;</span><span class="short-text">Est. % Gain&nbsp;</span></label><span class="mb-0  main-text" id="mYesterdayProfitPCTValue" title="'+prevPercent+'">'+prevPercent+'</span>');
+        } else {
+            $("#mYesterdayProfitPCTValue").attr("title",prevPercent);
+            $("#mYesterdayProfitPCTValue").text(prevPercent);
+        }
+    }
+}
+
 function estimatePercent() {
     var todayPercentCalc = ($("#mTodayProfit").text()/$("#mTotalCurrentVal").text()*100).toFixed(2);
     var todayPercent = todayPercentCalc + '%';
@@ -376,7 +442,7 @@ function estimatePercent() {
     if ($("#mTodayProfit").text() !== "")
     { 
         if ($("#mTodayProfitPCTValue").text() === "") {
-        $("span.market-price-calculations.text-profittd").append('<label class="usd-value"><span class="full-text">Estimated Percent Gain&nbsp;</span><span class="short-text">Est. % Gain&nbsp;</span></label><span class="mb-0  main-text" id="mTodayProfitPCTValue" title="'+todayPercent+'">'+todayPercent+'</span>');
+        $("span.market-price-calculations.text-profittd").append('<br><label class="usd-value"><span class="full-text">Estimated Percent Gain&nbsp;</span><span class="short-text">Est. % Gain&nbsp;</span></label><span class="mb-0  main-text" id="mTodayProfitPCTValue" title="'+todayPercent+'">'+todayPercent+'</span>');
         } else {
             $("#mTodayProfitPCTValue").attr("title",todayPercent);
             $("#mTodayProfitPCTValue").text(todayPercent);
@@ -384,10 +450,16 @@ function estimatePercent() {
     }
 }
 
+estimateYesterdayPercent();
+$("body").on('DOMSubtreeModified', "#mYesterdayProfitUSDValue", function() {
+	estimateYesterdayPercent();
+});
+
 estimatePercent();
 $("body").on('DOMSubtreeModified', "#mTodayProfitUSDValue", function() {
-    estimatePercent();
+	estimatePercent();
 });
+
 
 
 //USD-Estimate.js
