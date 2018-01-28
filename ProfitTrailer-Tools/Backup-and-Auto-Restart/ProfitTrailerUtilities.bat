@@ -9,7 +9,7 @@ REM START
 cls
 @echo off
 set RUN_INTERVAL_IN_MINUTES=10
-set ramMB=512
+set ramMB=2024
 
 
 REM AUTO START ON PC CRASH/SHUTDOWN
@@ -25,7 +25,8 @@ cscript /nologo %SCRIPT%
 del %SCRIPT%
 
 REM FIXING PT LAUNCH FILE
-del %cd%\ProfitTrailer\ProfitTrailer.cmd
+
+del %cd%\ProfitTrailer\*.cmd
 echo title PT%name% ^& java ^-jar ProfitTrailer.jar ^-XX:+UseConcMarkSweepGC ^-Xmx%ramMB%m ^-Xms%ramMB%m>> %cd%\ProfitTrailer\ProfitTrailer.cmd
 
 REM MAKING EXCLUDED BACKUP
