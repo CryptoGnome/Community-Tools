@@ -4,6 +4,10 @@ Purpose:
 2. To restart ProfitTrailer on crash where CMD closes (not on freeze)
 3. To keep backups of both your settings and logs every 10 min
 4. To reboot every 12 hours to prevent java memory leaks and feezing
+
+# VIDEO GUIDE
+
+https://www.youtube.com/watch?v=vqoR_kwHOPo
  
 # Instructions for ONE BOT:
 1. Shut off your ProfitTrailer bot!
