@@ -69,6 +69,10 @@ if "%reboottime%"=="72" (goto reboot1)
 REM POST BACKUP MESSAGES AND PT CRASH CHECK
 :ars
 cls
+echo If you need any help please PM @Aqua#0247 on Discord
+echo If you found the utility useful
+echo LTC: LWMMsRPXkXmB2H2f5qPJ8Tqt7h3S7SELxq
+echo .
 echo Hello, this is post backup screen!
 echo I just made a backup of your files!
 echo If this is your first backup please go check the results!
@@ -89,6 +93,10 @@ goto eof
 
 cls
 @echo off
+echo If you need any help please PM @Aqua#0247 on Discord
+echo If you found the utility useful
+echo LTC: LWMMsRPXkXmB2H2f5qPJ8Tqt7h3S7SELxq
+echo .
 echo Hello, this is the waiting for next backup screen!
 echo I'm going to back up your files again in %RUN_INTERVAL_IN_MINUTES% minutes!
 echo Then I will make sure ProfitTrailer is running!
