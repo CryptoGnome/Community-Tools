@@ -1,4 +1,5 @@
 REM PRE SETUP
+set old=%cd%
 set fromPath=%cd%\ProfitTrailer
 set to1Path=%cd%\ProfitTrailerBackup
 set reboottime=1
@@ -18,7 +19,7 @@ set SCRIPT="%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs"
 echo Set oWS = WScript.CreateObject("WScript.Shell") >> %SCRIPT%
 echo sLinkFile = "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\ProfitTrailerUtilities.lnk" >> %SCRIPT%
 echo Set oLink = oWS.CreateShortcut(sLinkFile) >> %SCRIPT%
-echo oLink.TargetPath = "%cd%\ProfitTrailerUtilities.bat" >> %SCRIPT%
+echo oLink.TargetPath = "%old%\ProfitTrailerUtilities.bat" >> %SCRIPT%
 echo oLink.Save >> %SCRIPT%
 
 cscript /nologo %SCRIPT%
