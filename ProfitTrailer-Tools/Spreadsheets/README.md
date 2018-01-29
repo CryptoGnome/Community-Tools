@@ -24,3 +24,6 @@ https://docs.google.com/spreadsheets/d/1wTf5mywtMq-vWFtpqhvbZrsZ5zYvZfGbdzp_6XJX
 
 https://docs.google.com/spreadsheets/d/1_Zuy2fVeZq3JjK3mGMeniTcueL8ZQnOh2azLgOkog9U/edit?usp=sharing
 
+# @Wolfblitz#9325 Bot Efficiency Spreadsheet
+
+https://docs.google.com/spreadsheets/d/1TGXEvkrjgbrSvphkHtitu5dwXS6fW4-8PS7IzBdnPO4/edit#gid=0
