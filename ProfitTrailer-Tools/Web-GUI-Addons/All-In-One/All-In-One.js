@@ -663,7 +663,7 @@ var ConvertLogDates = {
 			_parent.convertLocalTimeToAMPM();
 		});
 
-		$(".dca-log, .pairs-log, .dust-log, .sales-log").on("click", function() {
+		$(".dca-log, .pairs-log, .dust-log, .sales-log, th.date.all").on("click", function() {
 			console.log ("called");
 				setTimeout(function(){
 					if ($('#dtSalesLog').text() !== "")
@@ -685,7 +685,7 @@ var ConvertLogDates = {
     		 amPmTime = this.toDate(militaryTime,"h:m").toLocaleString('en-US',
     		  { hour: 'numeric', minute: 'numeric', hour12: true }),
     		 newDate = mDY + ' ' + amPmTime + ' (' + day +')';
-    		 return newDate;
+		     return (originalDate.indexOf('M') != '-1')?originalDate:newDate;
 	},
 	convertLocalTimeToAMPM: function () {
 	  var time = this.toDate($("#dvCurrentTime").text(),"h:m"),
@@ -740,4 +740,3 @@ var ConvertLogDates = {
     }
 };
 ConvertLogDates.init();
-
