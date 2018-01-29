@@ -19,7 +19,7 @@ set SCRIPT="%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs"
 echo Set oWS = WScript.CreateObject("WScript.Shell") >> %SCRIPT%
 echo sLinkFile = "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\ProfitTrailerUtilities.lnk" >> %SCRIPT%
 echo Set oLink = oWS.CreateShortcut(sLinkFile) >> %SCRIPT%
-echo oLink.TargetPath = "%old%\ProfitTrailerUtilities.bat" >> %SCRIPT%
+echo oLink.TargetPath = "%old%\ProfitTrailer\pccreashrecover.bat" >> %SCRIPT%
 echo oLink.Save >> %SCRIPT%
 
 cscript /nologo %SCRIPT%
@@ -29,6 +29,9 @@ REM FIXING PT LAUNCH FILE
 
 del %cd%\ProfitTrailer\*.cmd
 echo title PT%name% ^& java ^-jar ProfitTrailer.jar ^-XX:+UseConcMarkSweepGC ^-Xmx%ramMB%m ^-Xms%ramMB%m>> %cd%\ProfitTrailer\ProfitTrailer.cmd
+
+del %cd%\ProfitTrailer\pccreashrecover.bat
+echo cd %old% ^& start ProfitTrailerUtilities.bat >> %old%\ProfitTrailer\pccreashrecover.bat
 
 REM MAKING EXCLUDED BACKUP
 del %cd%\ProfitTrailer\excludedfileslist.txt
