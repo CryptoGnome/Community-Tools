@@ -10,7 +10,7 @@ REM START
 cls
 @echo off
 set RUN_INTERVAL_IN_MINUTES=10
-set ramMB=512
+set ramMB=1024
 
 
 REM AUTO START ON PC CRASH/SHUTDOWN
@@ -67,7 +67,7 @@ mkdir %toPath%\%folderPath%
 xcopy "%fromPath%" "%toPath%" /e /h /k /exclude:%fromPath%\excludedfileslist.txt
 
 set /a reboottime="1+%reboottime%"
-if "%reboottime%"=="72" (goto reboot1)
+if "%reboottime%"=="18" (goto reboot1)
 
 
 REM POST BACKUP MESSAGES AND PT CRASH CHECK
