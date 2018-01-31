@@ -712,8 +712,7 @@ var ConvertLogDates = {
 			_parent.convertLocalTimeToAMPM();
 		});
 
-		$(".dca-log, .pairs-log, .dust-log, .sales-log, th.date.all").on("click", function() {
-			console.log ("called");
+		$(document).on("click",".dca-log, .pairs-log, .dust-log, .sales-log, th.date.all, .page-link, .page-item, .sorting_asc, .sorting_desc", function() {
 				setTimeout(function(){
 					if ($('#dtSalesLog').text() !== "")
 						_parent.convertSalesLogDates();
@@ -723,7 +722,7 @@ var ConvertLogDates = {
 						_parent.convertPairsDates();
 					if ($('#dtDustLogs').text() !== "")
 						_parent.convertDustLogDates();
-				},500);
+				},100);
 		});
 	},
 	calcNewDate: function(t) {
