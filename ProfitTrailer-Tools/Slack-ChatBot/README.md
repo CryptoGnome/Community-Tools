@@ -1,4 +1,4 @@
-# PT-Slack
+# Slack ChatBot
 https://github.com/CryptoRireal/PTChatBot
 
 # If you need any help please PM @rireal#2742 on Discord
