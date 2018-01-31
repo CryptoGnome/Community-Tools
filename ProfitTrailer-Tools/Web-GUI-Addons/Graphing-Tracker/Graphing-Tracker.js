@@ -18,13 +18,24 @@
 
 	util.topOffsetPercentage = 2; // value between 60 and 2;
 	util.bottomOffsetPercentage = 2; // value between 60 and 2;
+
+	// --- the below settings are experimental... please let me know if they aren't working and you're using them.
+
+	util.testHangWarning = true; // --- true to enable hang warnings; false to disable.
+	util.hangThreshold = 10; // --- the number of ticks with an identical price that will cause a hang warning alert.
+	util.percentHanging = .5; // --- percentage of items needed to appear to hang before a warning is given
+	util.hangWarningMessage = '{n} Prices seem to be stagnant... did the bot hang?'; // --- hang message
 	//=========================================
 	//===========  END SETTINGS  ==============
 	//=========================================
 
+
+	util.msPerDataFrame = 12900; //assumed average time
 	util.topOffsetPercentage = Math.min( 60, Math.max( 2, util.topOffsetPercentage ));
 	util.bottomOffsetPercentage = Math.min( 60, Math.max( 2, util.bottomOffsetPercentage ));
 	util.graphFrames = ((util.graphMinutes || 5) * 6) >> 0;
+	util.hangThreshold = Math.min( 999, Math.max( 1, util.hangThreshold ));
+	util.percentHanging = Math.min( 1, Math.max( .001, util.percentHanging ));
 
 	util.createHiDPICanvas = function( w, h, ratio, elementUse ) {
 		if( !window.PIXEL_RATIO ) {
@@ -88,12 +99,8 @@
 
 	util.graph.prototype.drawStats = function() {
 		var ctx = util.canvasContext;
-		var size = this.destination.getBoundingClientRect()
+		var size = this.destination.getBoundingClientRect();
 		var totalRun = this.stats.totalSamples;
-		if( totalRun < 2 ) {
-			console.warn('please set valid number for util.graphMinutes (more than .17)');
-			return;
-		}
 
 		if( util.extendGraphColumn && size.width < totalRun ) {
 			this.destination.style['width'] = totalRun+'px';
@@ -141,10 +148,10 @@
 			ctx.fillStyle = util.zeroLineColor;
 			ctx.lineWidth = 1;
 			ctx.font = '12px calibri';
-			ctx.fillText( '0%', 0, percent * size.height >> 0 );
+			ctx.fillText( '0%', 0, (percent * size.height >> 0) + .5 );
 			ctx.beginPath();
-			ctx.moveTo( 20, percent * size.height );
-			ctx.lineTo( size.width, percent * size.height >> 0 );
+			ctx.moveTo( 20, (percent * size.height >> 0) + .5 );
+			ctx.lineTo( size.width, (percent * size.height >> 0) + .5 );
 			ctx.stroke();
 		}
 
@@ -153,8 +160,8 @@
 			ctx.strokeStyle = util.sellThresholdColor;
 			ctx.lineWidth = 1;
 			ctx.beginPath();
-			ctx.moveTo( 0, percent * size.height );
-			ctx.lineTo( size.width, percent * size.height );
+			ctx.moveTo( 0, (percent * size.height >> 0) +.5 );
+			ctx.lineTo( size.width, (percent * size.height >> 0) +.5 );
 			ctx.stroke();
 		}
 
@@ -164,15 +171,21 @@
 		var first = true;
 		var index = 0;
 		for( var i = 0; i < totalRun; i++ ) {
-			if( this.stats.data[i] != null ) {
+			if( this.stats.data[i] != null && this.stats.data[i] != '' ) {
 				if( first ) {
 					first = false;
-					ctx.moveTo( (index/(totalRun-1) * size.width) >> 0, (size.height - (( this.stats.data[i] - range.min ) / range.size * size.height )) >> 0);
+					ctx.moveTo( (index/totalRun * size.width) , (size.height - (( this.stats.data[i] - range.min ) / range.size * size.height )));
 				} else {
-					ctx.lineTo( (index/(totalRun-1) * size.width) >> 0, (size.height - (( this.stats.data[i] - range.min ) / range.size * size.height )) >> 0);
+					ctx.lineTo( (index/totalRun * size.width) , (size.height - (( this.stats.data[i] - range.min ) / range.size * size.height )));
 				}
 				index++;
-			}
+			} /*else if( this.stats.data[i] == '' ) {
+				if( !first ) {
+					ctx.stroke();
+					first = true;
+				}
+				index++;
+			}*/
 		}
 		ctx.stroke();
 		var res = 'url(' + util.canvas.toDataURL() + ')';
@@ -190,6 +203,7 @@
 			childDestination: 'profit',
 			drawZero: true,
 			drawProfit: true,
+			hangCheck: true,
 			pairAppend: ''
 		},
 		pairs: {
@@ -199,6 +213,7 @@
 			childDestination: 'profit',
 			drawZero: true,
 			drawProfit: true,
+			hangCheck: true,
 			pairAppend: ''
 		},
 		pbl: {
@@ -208,6 +223,7 @@
 			childDestination: 'current-value',
 			drawZero: false,
 			drawProfit: false,
+			hangCheck: true,
 			pairAppend: '_PBL'
 		},
 		dust: {
@@ -217,6 +233,7 @@
 			childDestination: 'profit',
 			drawZero: true,
 			drawProfit: false,
+			hangCheck: false,
 			pairAppend: '_DUST'
 		},
 		pending: {
@@ -226,6 +243,7 @@
 			childDestination: 'profit',
 			drawZero: true,
 			drawProfit: true,
+			hangCheck: false,
 			pairAppend: '_PEND'
 		}
 	};
@@ -235,6 +253,9 @@
 	var freshPairCutoff = 60000;
 	function tick( data ) {
 		var now = Date.now();
+
+		var hangStats = {signaled: 0, max: 0};
+
 		var keys = Object.keys( pairData );
 		for( var i = 0; i < keys.length; i++ ) {
 			if( now - pairData[keys[i]].lastTick > freshPairCutoff ) {
@@ -252,6 +273,10 @@
 						lastTick: now,
 						graph: new util.graph( containers[dataTypes[i]].drawZero, containers[dataTypes[i]].drawProfit )
 					};
+					var cachedData = getCacheData( pair );
+					for( var z = 0; z < cachedData.length; z++ ) {
+						pairData[pair].graph.updateStats( cachedData[z], 0 );
+					}
 				} else {
 					pairData[pair].lastTick = now;
 				}
@@ -259,8 +284,41 @@
 					source[j][containers[dataTypes[i]].statName] / 100, //current profit
 					(source[j].triggerValue || 0) / 100 //sell threshold
 				);
+				setCacheData( pair, pairData[pair].graph.stats.data, pairData[pair].lastTick );
+				if( util.testHangWarning && containers[dataTypes[i]].hangCheck ) {
+					hangStats.max++;
+					var result = hangCheck( pairData[pair] );
+					if( result >= util.hangThreshold ) {
+						console.log( pair + ' is signaling a hang.');
+						hangStats.signaled++;
+					}
+				}
 			}
 		}
+
+		if( util.testHangWarning && hangStats.max > 0 && hangStats.signaled / hangStats.max >= util.percentHanging ) {
+			alert( util.hangWarningMessage.replace( '{n}', hangStats.signaled ));
+		}
+	}
+
+	function hangCheck( pair ) {
+		var start = pair.graph.stats.totalSamples - 1;
+		var runs = {};
+		var lastValue = null;
+		var run = 0;
+		for( var i = pair.graph.stats.totalSamples-1; i > -1; i-- ) {
+			var curValue = pair.graph.stats.data[i];
+			if( curValue != null && curValue != '' && lastValue == null ) {
+				lastValue = curValue;
+
+				run++;
+			} else if( curValue == lastValue ) {
+				run++;
+			} else if( lastValue != null ) {
+				return run;
+			}
+		}
+		return 0;
 	}
 
 	function render() {
@@ -285,6 +343,48 @@
 		}
 	}
 
+	function setCacheData( key, values, lastTick ) {
+		var graphing = localStorage.getItem('graphing');
+		if( graphing == null ) {
+			graphing = {};
+		} else {
+			graphing = JSON.parse( graphing );
+		}
+
+		var store = [];
+		for( var i = 0; i < values.length; i++ ) {
+			if( values[i] == null || values[i] == '' ) {
+				// do nothing
+			} else {
+				store.push(parseFloat(values[i].toFixed(4)));
+			}
+		}
+
+		graphing[key] = {time: lastTick, values: store};
+
+		localStorage.setItem( 'graphing', JSON.stringify( graphing ));
+	}
+
+	function getCacheData( key ) {
+		var graphing = localStorage.getItem('graphing');
+		if( graphing == null ) {
+			graphing = {};
+		} else {
+			graphing = JSON.parse( graphing );
+		}
+
+		if( graphing[key] != undefined ) {
+			var elapsedTime = Date.now() - graphing[key].time;
+			var ticksElapsed = (elapsedTime / util.msPerDataFrame) >> 0;
+			var results = graphing[key].values;
+			for( var i = 0; i < ticksElapsed; i++ ) {
+				results.push(null);
+			}
+			return results;
+		}
+		return [];
+	}
+
 	// listen to AJAX requests:
 
 	function addXMLRequestCallback( callback ) {
@@ -305,7 +405,7 @@
 	            }
 	            // call the native send()
 	            oldSend.apply( this, arguments );
-	        }
+	        };
 	    }
 	}
 
