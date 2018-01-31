@@ -1,9 +1,7 @@
 # Backup and Auto Restart
 Purpose:
 1. To start ProfitTrailer on PC reboot or crash
-2. To restart ProfitTrailer on crash where CMD closes (not on freeze)
-3. To keep backups of both your settings and logs every 10 min
-4. To reboot every 12 hours to prevent java memory leaks and feezing
+3. To keep backups of your settings every 10 min
 
 # VIDEO GUIDE
 
