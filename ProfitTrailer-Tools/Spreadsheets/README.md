@@ -26,4 +26,12 @@ https://docs.google.com/spreadsheets/d/1_Zuy2fVeZq3JjK3mGMeniTcueL8ZQnOh2azLgOko
 
 # @Wolfblitz#9325 Bot Efficiency Spreadsheet
 
-https://docs.google.com/spreadsheets/d/1TGXEvkrjgbrSvphkHtitu5dwXS6fW4-8PS7IzBdnPO4/edit#gid=0
+https://docs.google.com/spreadsheets/d/1TGXEvkrjgbrSvphkHtitu5dwXS6fW4-8PS7IzBdnPO4/edit?usp=sharing
+
+# @moneyman4438#9514 BTC Profit Trailer Tracker
+
+https://docs.google.com/spreadsheets/d/1-r_nYCEIDihobYSgEpM5CL1vm92ixw-r-zEXk1_SbIA/edit?usp=sharing
+
+# @moneyman4438#9514 ETH Profit Trailer Tracker
+
+https://docs.google.com/spreadsheets/d/1zr9NaKFI5ZTYbJI1OdIBwijbcoltRWysYwWRb-_El9Q/edit?usp=sharing
