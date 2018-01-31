@@ -15,9 +15,7 @@ https://cryptoprofitbot.com/?ref=CryptoGnome
 Binance:
 https://www.binance.com/?ref=11615560
 
-VPS OPTIONS:
-https://www.vultr.com/?ref=7300008
-https://billing.virmach.com/aff.php?aff=3389
+VPS OPTIONS: https://www.vultr.com/?ref=7300008 or https://billing.virmach.com/aff.php?aff=3389
 
 Buy Bitcoin on CoinBase:
 https://www.coinbase.com/join/596e0bae9fb680020742d903
