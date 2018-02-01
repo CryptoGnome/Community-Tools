@@ -1,3 +1,5 @@
 # Will Auto Blacklist New Binance Releases
 
-https://github.com/bennettca/ProfitTrailer-new-binance-listings
+# WORKS ON PT AND PTF
+
+https://github.com/bennettca/binance-auto-blacklist/releases
