@@ -70,7 +70,7 @@ set toPath=%to1Path%\YYYYMMDD_%year%%month%%day%\HHMMSS_%hour%%minute%%second%
 
 mkdir %toPath%\%folderPath%
 
-xcopy "%fromPath%\trading" "%toPath%" /e /h /k
+xcopy "%fromPath%\trading" "%toPath%\*.*" /e /h /k /s /i /f /y
 
 
 REM POST BACKUP MESSAGES AND PT CRASH CHECK
