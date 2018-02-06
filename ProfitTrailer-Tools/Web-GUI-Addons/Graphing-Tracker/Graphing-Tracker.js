@@ -25,11 +25,13 @@
 	util.hangThreshold = 10; // --- the number of ticks with an identical price that will cause a hang warning alert.
 	util.percentHanging = .5; // --- percentage of items needed to appear to hang before a warning is given
 	util.hangWarningMessage = '{n} Prices seem to be stagnant... did the bot hang?'; // --- hang message
+
+	util.displayMarketCap = true;
 	//=========================================
 	//===========  END SETTINGS  ==============
 	//=========================================
 
-
+	util.coinMarketCapAPI = 'https://api.coinmarketcap.com/v1/global/';
 	util.msPerDataFrame = 12900; //assumed average time
 	util.topOffsetPercentage = Math.min( 60, Math.max( 2, util.topOffsetPercentage ));
 	util.bottomOffsetPercentage = Math.min( 60, Math.max( 2, util.bottomOffsetPercentage ));
@@ -252,6 +254,9 @@
 
 	var freshPairCutoff = 60000;
 	function tick( data ) {
+		if( util.displayMarketCap ) {
+			displayMarketCap();
+		}
 		var now = Date.now();
 
 		var hangStats = {signaled: 0, max: 0};
@@ -383,6 +388,25 @@
 			return results;
 		}
 		return [];
+	}
+
+
+
+	function displayMarketCap() {
+		$.get( util.coinMarketCapAPI, function( data ) {
+			if( data && data.total_market_cap_usd ) {
+				var value = data.total_market_cap_usd.toLocaleString( 'en', { useGrouping: true });
+				var delta = 0;
+				var exists = $( '#nMCAPTotal' );
+				if( exists.length ) {
+					exists.attr( 'title', value ).html( value );
+				} else {
+					$('.monitor-summary').append('<li class="list-inline-item tdbitcoin font-16 ticker-text"><label id="nMCAP" data-toggle="tooltip" data-placement="bottom" title="Total Crypto MarketCap" data-original-title="Total Crypto MarketCap">MCAP</label>: <span id="nMCAPTotal" title="'+value+'">'+value+'</span></li>');
+					// --- coinmarketcap does not currently return the 24hr % change, so save this for when it does.
+					//$('.monitor-summary').append('<li class="list-inline-item tdbitcoin font-16 ticker-text"><label id="nMarket" data-toggle="tooltip" data-placement="bottom" title="Total Crypto MarketCap" data-original-title="Total Crypto MarketCap">MCAP</label>: <span id="nMarketPrice" title="'+value+'">'+value+'</span>&nbsp;<span id="nMarketPercChange" title="'+delta+' %" class="text-danger">('+delta+' %)</span></li>');
+				}
+			}
+		});
 	}
 
 	// listen to AJAX requests:
