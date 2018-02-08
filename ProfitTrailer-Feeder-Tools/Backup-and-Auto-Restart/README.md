@@ -50,7 +50,7 @@ https://www.youtube.com/watch?v=vqoR_kwHOPo
 
 6. Repeat for each bot using "BOT2" and so on!
 
-# If you need any help please PM @Aqua#0247 on Discord
+# If you need any help please PM @A็qua⚡#0001 on Discord
 
 # If you found the utility useful
 
