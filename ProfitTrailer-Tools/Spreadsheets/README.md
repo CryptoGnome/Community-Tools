@@ -2,7 +2,7 @@
 
 A collection of Spreadsheets created and curated by our community!
 
-If you want your Spreadsheet listed here please PM @Aqua#0247 on Discord!
+If you want your Spreadsheet listed here please PM @A็qua⚡#0001 on Discord!
 
 # @CryptoGnome#7769 Profit Trailer Tracker
 
@@ -16,7 +16,7 @@ https://docs.google.com/spreadsheets/d/1zgrApNtPhr_BhoFxRoXi2kgEUiBJgFDVACaXP-lA
 
 https://docs.google.com/spreadsheets/d/1RAh-xjqsOQITBZmaf2ZTbPqq2aqjyKwF_kJuesaMFPc/edit?usp=sharing
 
-# @Aqua#0247 Detailed Profit Trailer Tracker
+# @A็qua⚡#0001 Detailed Profit Trailer Tracker
 
 https://docs.google.com/spreadsheets/d/1wTf5mywtMq-vWFtpqhvbZrsZ5zYvZfGbdzp_6XJXx4Q/edit?usp=sharing
 
