@@ -8,11 +8,11 @@ If you want your Spreadsheet listed here please PM @A็qua⚡#0001 on Discord!
 
 https://docs.google.com/spreadsheets/d/1wYKVQOrAX2g7QX1CC4GvoSNzEVVK9d7wn6vojKyjUt4/edit?usp=sharing
 
-# @JBHitman 💣#2014 Profit Trailer Tracker
+# @JB🌟#0001 Profit Trailer Tracker
 
 https://docs.google.com/spreadsheets/d/1zgrApNtPhr_BhoFxRoXi2kgEUiBJgFDVACaXP-lA6uU/edit?usp=sharing
 
-# @JBHitman 💣#2014 DCA Calculator
+# @JB🌟#0001 DCA Calculator
 
 https://docs.google.com/spreadsheets/d/1RAh-xjqsOQITBZmaf2ZTbPqq2aqjyKwF_kJuesaMFPc/edit?usp=sharing
 
