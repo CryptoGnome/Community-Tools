@@ -1,4 +1,4 @@
-# Will Auto Blacklist New Binance Releases
+# Will Auto Blacklist New Binance Releases @Cole#4126
 
 # WORKS ON PT AND PTF
 
