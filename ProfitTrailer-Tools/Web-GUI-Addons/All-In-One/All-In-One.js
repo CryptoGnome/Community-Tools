@@ -459,7 +459,7 @@
 //Advanced-Exchange.js
 //Advanced-Exchange.js
 //Advanced-Exchange.js
-function binanceAdvancedExchange() {
+function AdvancedExchange() {
   $("table td.market.all a").each(function() {
     var value = $(this).attr("href");
     var exchanges = ["BTC", "ETH", "BNB", "USDT"];
