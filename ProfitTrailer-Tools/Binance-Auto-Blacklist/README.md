@@ -2,4 +2,4 @@
 
 # WORKS ON PT AND PTF
 
-https://github.com/bennettca/binance-auto-blacklist/releases
+https://github.com/bennettca/binance-auto-blacklist
