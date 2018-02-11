@@ -15,8 +15,7 @@
 7. Reload the ProfitTrailer web GUI
 
 Example https://gyazo.com/67e9b935a1385691c892a015e5769e2f
-
-# If your in the US on line 20 you can change the second URL to us.binance.com/tradeDetail.html this will make it work in the US when www.binance.com is down
+Example https://gyazo.com/b68bf819eb80dafe13cdf1d6ea36cc38
 
 # If you need any help please PM @rireal#2742 on Discord
 
