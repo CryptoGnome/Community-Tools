@@ -496,10 +496,10 @@ function AdvancedExchange() {
 }
 
 $("body").on('DOMSubtreeModified', "#dvLastUpdatedOn", function() {
-  binanceAdvancedExchange();
+  AdvancedExchange();
 });
 $(".dca-log, .pairs-log, .dust-log, .sales-log, .pending-log, .possible-buys-log").on("click", function() {
-  setTimeout(function(){ binanceAdvancedExchange(); }, 100 );
+  setTimeout(function(){ AdvancedExchange(); }, 100 );
 });
 
 //Estimated-Percent-Gain.js
