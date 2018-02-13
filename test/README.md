@@ -111,7 +111,8 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 4. This approach is built in to any Python installation.
 
 <h3>Python 3</h3>
-* Do the same steps, but use the following command instead ```python3 -m http.server 8084```
+
+1. Do the same steps, but use the following command instead ```python3 -m http.server 8084```
 
 <h2>Security</h2>
 For extra security, you can block port 8084 in your firewall and add authentication using: https://github.com/tianhuil/SimpleHTTPAuthServer
