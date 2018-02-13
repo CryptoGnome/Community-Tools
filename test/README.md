@@ -71,6 +71,8 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 
 3. If this does not open the PtTracker website you will need  to run via the command line in this folder.
 
+4. (Note: Mongoose is a standalone web server. It is reccomended to block port 8084 in your firewall for security)
+
 <h2>Linux</h2>
 
 1. Install Apache using the <b><a href="https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-16-04" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">tutorial</a></b>
@@ -99,6 +101,8 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 
 6. Access PtTracker at http://{YourIp}/PtTracker.html
 
+7. (Note: It is reccomended to add htaccess and htpassword for extra security. http://www.htaccesstools.com/articles/password-protection/)
+
 <h2>Raspberry Pi</h2>
 <h3>Python 2</h3>
 
@@ -110,6 +114,8 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 
 4. This approach is built in to any Python installation.
 
+5. For extra security, you can block port 8084 in your firewall and add authentication using: https://github.com/tianhuil/SimpleHTTPAuthServer
+
 <h3>Python 3</h3>
 
 1. Do the same steps, but use the following command instead ```python3 -m http.server 8084```
@@ -120,21 +126,10 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 
 2. Access with: http://localhost/PtTracker.html
 
-
-
-<h2>Security</h2>
-Mongoose is a standalone web server. It is reccomended to block port 8084 in your firewall for security
-
-<h2>Security</h2>
-It is reccomended to add htaccess and htpassword for extra security. http://www.htaccesstools.com/articles/password-protection/
-
-<h2>Security</h2>
-For extra security, you can block port 8084 in your firewall and add authentication using: https://github.com/tianhuil/SimpleHTTPAuthServer
-
-
 <h1>Contact / Support</h1>
-<a target="_blank" href="https://discord.gg/FPXZVf">Discord:</a> https://discord.gg/FPXZVf<br>
-<a href="http://PtTracker.net" target="_blank">Website:</a> http://PtTracker.net
+<b>Website: <a href="http://pttracker.net/?r=3" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">http://pttracker.net/</a></b>
+
+<b>Discord: <a href="https://discord.gg/FPXZVf" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">https://discord.gg/FPXZVf</a></b>
 
 <h1>Donate</h1>
 And let me know on discord or telegram if you do so I can thank you!<br>
