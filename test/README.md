@@ -101,7 +101,7 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 
 6. Access PtTracker at http://{YourIp}/PtTracker.html
 
-7. (Note: It is reccomended to add htaccess and htpassword for extra security. http://www.htaccesstools.com/articles/password-protection/)
+7. (Note: It is reccomended to add htaccess and htpassword for extra security using <b><a href="http://www.htaccesstools.com/articles/password-protection/" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">tutorial</a></b>)
 
 <h2>Raspberry Pi</h2>
 <h3>Python 2</h3>
@@ -114,7 +114,7 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 
 4. This approach is built in to any Python installation.
 
-5. For extra security, you can block port 8084 in your firewall and add authentication using: https://github.com/tianhuil/SimpleHTTPAuthServer
+5. For extra security, you can block port 8084 in your firewall and add authentication using <b><a href="https://github.com/tianhuil/SimpleHTTPAuthServer" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">tutorial</a></b>)
 
 <h3>Python 3</h3>
 
