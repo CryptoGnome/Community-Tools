@@ -27,7 +27,7 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 
 <h1 id="#purchasing">How To Purchase</h1>
 
-1. Go to <a href="http://pttracker.net/?r=3" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">website</a>
+1. Go to <b><a href="http://pttracker.net/?r=3" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">official website</a></b>
 
 2. Click on "BUY NOW" button
 
@@ -65,13 +65,13 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 
 <h2>Windows & Mac</h2>
 
-1. After installing PtTracker, <a href="https://cesanta.com/binary.html">Download Mongoose (Windows / Mac)</a> and place the executable file in your ProfitTrailer Folder (same directory as profittrailer.jar and application.properties)<br>
+1. After installing PtTracker, <b><a href="https://cesanta.com/binary.html">Download Mongoose (Windows / Mac)</a></b> and place the executable file in your ProfitTrailer Folder (same directory as profittrailer.jar and application.properties)<br>
 
 2. Open Mongoose (Double click executable file)
 
 3. If this does not open the PtTracker website you will need  to run via the command line in this folder.
 
-##Linux
+<h2>Linux</h2>
 
 1. Install Apache using the following tutorial https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-16-04
 
