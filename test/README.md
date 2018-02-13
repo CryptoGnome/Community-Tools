@@ -22,15 +22,21 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 <br><br>
 <b>Is PtTracker officially endorsed by ProfitTrailer?</b> Not yet! However, we hope to make this happen soon. Hint hint @ProfitTrailer ;)
 <br><br>
-<b>Do you have any other questions?</b> Join our Discord and we will be happy to help you in the  <b><a href="https://discord.gg/FPXZVf" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">#pt-tracker-support channel</a></b>
+<b>Do you have any other questions?</b> Join our Discord and we will be happy to help you in the <b><a href="https://discord.gg/FPXZVf" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">#pt-tracker-support</a></b>
 
 
 <h1 id="#purchasing">How To Purchase</h1>
+
 1. Go to Website: <a href="http://pttracker.net/?r=3" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">http://pttracker.net/</a>
+
 2. Click on "BUY NOW" button
+
 3. Enter your email address and click next
+
 4. Send the currency to the address provided
+
 5. Sit back and wait for confirmations on the blockchain
+
 6. Check your email for the files and licence key
 
 <h1>How To Install & Configure PtTracker</h1>
