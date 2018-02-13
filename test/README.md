@@ -69,7 +69,7 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 
 2. Open Mongoose (Double click executable file)
 
-3. If this does not open the PtTracker website you will need  to run via the command line in this folder.
+3. If this does not open the PtTracker website you will need  to run via the command line or a bat file in this folder.
 
 4. (Note: Mongoose is a standalone web server. It is reccomended to block port 8084 in your firewall for security)
 
