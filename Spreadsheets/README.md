@@ -6,7 +6,7 @@ If you want your Spreadsheet listed here please PM @A็qua⚡#0001 on Discord!
 
 # Fully Automated PtTracker 
 
-http://pttracker.net/
+http://pttracker.net/?r=3
 
 https://github.com/bTayFla/PtTracker
 
