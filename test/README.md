@@ -99,21 +99,19 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 
 6. Access PtTracker at http://{YourIp}/PtTracker.html
 
+<h2>Raspberry Pi</h2>
+<h3>Python 2</h3>
 
+1. Change directory into the ProfitTrailer folder using the command ```cd /path/to/your/ProfitTrailer```
 
-<h1>Running PtTracker (Raspberry Pi)</h1>
-<h2>Python 2</h2>
+2. Start up a Python web server using the command ```python -m SimpleHTTPServer 8084```
 
-Change directory into the ProfitTrailer folder using the command ```cd /path/to/your/ProfitTrailer```
+3. This will start a web server that hosts PtTracker, which will be made accessible through the following URL: http://localhost:8084/PtTracker.html OR http://{YourServerIp}:8084/PtTracker.html
 
-Start up a Python web server using the command ```python -m SimpleHTTPServer 8084```
+4. This approach is built in to any Python installation.
 
-This will start a web server that hosts PtTracker, which will be made accessible through the following URL: http://localhost:8084/PtTracker.html OR http://{YourServerIp}:8084/PtTracker.html
-
-This approach is built in to any Python installation.
-
-<h2>Python 3</h2>
-Do the same steps, but use the following command instead ```python3 -m http.server 8084```
+<h3>Python 3</h3>
+* Do the same steps, but use the following command instead ```python3 -m http.server 8084```
 
 <h2>Security</h2>
 For extra security, you can block port 8084 in your firewall and add authentication using: https://github.com/tianhuil/SimpleHTTPAuthServer
