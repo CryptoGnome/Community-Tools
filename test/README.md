@@ -19,6 +19,8 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 <b>Can I use PtTracker on more than one bot/exchange?</b> Your PtTracker license key will work for as many bots as you want as long as they are on the same IP address. If you use bots on different machines, a license key will need to be purchased for each machine. (Note: Your license key has single user access. If you give it to someone else, your tracker will no longer work.)
 <br><br>
 <b>Is PtTracker officially endorsed by ProfitTrailer?</b> Not yet! However, we hope to make this happen soon. Hint hint @ProfitTrailer ;)
+<br><br>
+<b>Do you have any other questions?</b> Join our Discord and we will be happy to help you in the #pt-tracker-support channel! <b>Discord: <a href="https://discord.gg/FPXZVf" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">https://discord.gg/FPXZVf</a></b>
 
 
 <h1 id="#purchasing">How To Purchase</h1>
@@ -38,17 +40,17 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 
 3. Open PtTracker.json in your favorite text editor, add your username, license key, starting value, and any deposits and withdrawals then save and close the file.
 
-* <b>StartingValue</b> is the balance you started with when you first purchased the bot and is needed to calculate your current balance. If you do not update this, your balance will not be accurate. If you do not know your starting value you can put a number you think is close then once it is running there will be a fix button on the top right next to current value. Click this button and put your actual current value and it will tell you how much your starting balance was.
+	* <b>StartingValue</b> is the balance you started with when you first purchased the bot and is needed to calculate your current balance. If you do not update this, your balance will not be accurate. If you do not know your starting value you can put a number you think is close then once it is running there will be a fix button on the top right next to current value. Click this button and put your actual current value and it will tell you how much your starting balance was.
 
-* <b>Deposits/Withdrawls</b> can be added by editing the transfers section in PtTracker.json. Simple add the date (mm/dd/yyyy format) and a positive or negative value. (Do not add a comma to the last item or PtTracker will not work.)
+	* <b>Deposits/Withdrawls</b> can be added by editing the transfers section in PtTracker.json. Simple add the date (mm/dd/yyyy format) and a positive or negative value. (Do not add a comma to the last item or PtTracker will not work.)
 
-	```
-	"Transfers": {
-	"01/07/2018": "0.06",
-	"02/02/2018": "-0.02",
-	"02/14/2018": "0.8"
-	}
-	```
+		```
+		"Transfers": {
+		"01/07/2018": "0.06",
+		"02/02/2018": "-0.02",
+		"02/14/2018": "0.8"
+		}
+		```
 
 <h1>Running PtTracker (Windows / Mac) </h1>
 1. After installing PtTracker, <a href="https://cesanta.com/binary.html">Download Mongoose (Windows / Mac)</a> and place the executable file in your ProfitTrailer Folder.<br>
