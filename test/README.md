@@ -114,13 +114,23 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 
 1. Do the same steps, but use the following command instead ```python3 -m http.server 8084```
 
+<h2>Other OS?</h2>
+
+1. Configure your webserver to server your ProfitTrailer folder as webroot directory locally.
+
+2. Access with: http://localhost/PtTracker.html
+
+
+
+<h2>Security</h2>
+Mongoose is a standalone web server. It is reccomended to block port 8084 in your firewall for security
+
+<h2>Security</h2>
+It is reccomended to add htaccess and htpassword for extra security. http://www.htaccesstools.com/articles/password-protection/
+
 <h2>Security</h2>
 For extra security, you can block port 8084 in your firewall and add authentication using: https://github.com/tianhuil/SimpleHTTPAuthServer
 
-<h1>Running PtTracker using your own web server (Any OS)</h1>
-
-Configure your webserver to serve your ProfitTrailer folder as webroot directory locally.<br>
-Access with: http://localhost/PtTracker.html<br>
 
 <h1>Contact / Support</h1>
 <a target="_blank" href="https://discord.gg/FPXZVf">Discord:</a> https://discord.gg/FPXZVf<br>
@@ -131,9 +141,3 @@ And let me know on discord or telegram if you do so I can thank you!<br>
 BTC: 13EUZ5juobs1XfZW6Ad3QTkbhvchsKbbJN<br>
 LTC: LbmkWmVP1npYtcZtW44Xq1SSGJsRCFZNvC<br>
 ETH: 0xAcc1416387B7C3f9AF0E93A9583C95EB441dDD6
-
-<h2>Security</h2>
-Mongoose is a standalone web server. It is reccomended to block port 8084 in your firewall for security
-
-<h2>Security</h2>
-It is reccomended to add htaccess and htpassword for extra security. http://www.htaccesstools.com/articles/password-protection/
