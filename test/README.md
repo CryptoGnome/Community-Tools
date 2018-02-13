@@ -31,7 +31,7 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 5. Sit back and wait for confirmations on the blockchain
 6. Check your email for the files and licence key
 
-<h1>How To Install and Configure PtTracker</h1>
+<h1>How To Install & Configure PtTracker</h1>
 
 1. Change trading.logHistory in the application.properties file in your ProfitTrailer folder to prevent data removal:
 
@@ -53,18 +53,20 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 		}
 		```
 
-<h1>Running PtTracker (Windows / Mac) </h1>
-1. After installing PtTracker, <a href="https://cesanta.com/binary.html">Download Mongoose (Windows / Mac)</a> and place the executable file in your ProfitTrailer Folder.<br>
-2. Open Mongoose (Double click executable file)<br>
+#How To Run PtTracker
+##Windows & Mac
 
-<h2>Security</h2>
-Mongoose is a standalone web server. It is reccomended to block port 8084 in your firewall for security
+1. After installing PtTracker, <a href="https://cesanta.com/binary.html">Download Mongoose (Windows / Mac)</a> and place the executable file in your ProfitTrailer Folder (same directory as profittrailer.jar and application.properties)<br>
 
-<h1>Running PtTracker (Linux)</h1>
+2. Open Mongoose (Double click executable file)
 
-1. Install Apache https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-16-04
+3. If this does not open the PtTracker website you will need  to run via the command line in this folder.
 
-2. Copy the PtTracker.html and PtTracker.json files to your web root (/var/www/html)
+##Linux
+
+1. Install Apache using the following tutorial https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-16-04
+
+2. Move the PtTracker.html and PtTracker.json files to your web root (/var/www/html)
 
 3. Copy the ProfitTrailerData.json file from PT folder to your webroot ```cp /home/profitTrailer/ProfitTrailerData.json /var/www/html/ProfitTrailerData.json```
 
@@ -121,3 +123,6 @@ And let me know on discord or telegram if you do so I can thank you!<br>
 BTC: 13EUZ5juobs1XfZW6Ad3QTkbhvchsKbbJN<br>
 LTC: LbmkWmVP1npYtcZtW44Xq1SSGJsRCFZNvC<br>
 ETH: 0xAcc1416387B7C3f9AF0E93A9583C95EB441dDD6
+
+<h2>Security</h2>
+Mongoose is a standalone web server. It is reccomended to block port 8084 in your firewall for security
