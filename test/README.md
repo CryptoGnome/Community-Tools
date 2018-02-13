@@ -73,7 +73,7 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 
 <h2>Linux</h2>
 
-1. Install Apache using the following tutorial https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-16-04
+1. Install Apache using the <b><a href="https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-16-04" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">tutorial</a></b>
 
 2. Move the PtTracker.html and PtTracker.json files to your web root (/var/www/html)
 
@@ -81,25 +81,25 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 
 4. Create a shell script to automatically copy your Profit Trailer data to web root: ```nano /var/scripts/getPtTrackerData.sh```
 
-Add the following lines
-```
-#!/bin/sh
-rm /var/www/html/ProfitTrailerData.json
-cd /home/profitTrailer
-cp /home/profitTrailer/ProfitTrailerData.json /var/www/html/ProfitTrailerData.json
-cd /var/www/html
-chown www-data:www-data /var/www/html/ProfitTrailerData.json
-```
+		Add the following lines
+		```
+		#!/bin/sh
+		rm /var/www/html/ProfitTrailerData.json
+		cd /home/profitTrailer
+		cp /home/profitTrailer/ProfitTrailerData.json /var/www/html/ProfitTrailerData.json
+		cd /var/www/html
+		chown www-data:www-data /var/www/html/ProfitTrailerData.json
+		```
 
 5. Setup crontab to run script every three minutes.<br>
-Give full permission: ```sudo chmod a+x /var/scripts/getPtTrackerData.sh```<br>
-Edit crontab: ```crontab -e command```<br>
-Add a new line: ``` */3 * * * * /var/scripts/getPtTrackerData.sh```<br>
+
+	Give full permission: ```sudo chmod a+x /var/scripts/getPtTrackerData.sh```<br>
+	Edit crontab: ```crontab -e command```<br>
+	Add a new line: ``` */3 * * * * /var/scripts/getPtTrackerData.sh```<br>
 
 6. Access PtTracker at http://{YourIp}/PtTracker.html
 
-<h2>Security</h2>
-It is reccomended to add htaccess and htpassword for extra security. http://www.htaccesstools.com/articles/password-protection/
+
 
 <h1>Running PtTracker (Raspberry Pi)</h1>
 <h2>Python 2</h2>
@@ -135,3 +135,6 @@ ETH: 0xAcc1416387B7C3f9AF0E93A9583C95EB441dDD6
 
 <h2>Security</h2>
 Mongoose is a standalone web server. It is reccomended to block port 8084 in your firewall for security
+
+<h2>Security</h2>
+It is reccomended to add htaccess and htpassword for extra security. http://www.htaccesstools.com/articles/password-protection/
