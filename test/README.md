@@ -132,6 +132,7 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 <b><a href="https://discord.gg/FPXZVf" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">Official Support Discord</a></b>
 
 <h1>Donate</h1>
+
 And let me know on discord or telegram if you do so I can thank you!
 
 <b>BTC:</b> 13EUZ5juobs1XfZW6Ad3QTkbhvchsKbbJN<br>
