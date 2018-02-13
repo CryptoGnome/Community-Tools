@@ -6,11 +6,14 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 <a href="https://ibb.co/nLjtox"><img src="https://preview.ibb.co/b8R68x/Screenshot_2018_02_06_12_30_41.jpg" alt="Screenshot_2018_02_06_12_30_41" border="0"></a>
 
 <h1>FAQ</h1>
-<b>Is my setup supported?</b> Yes, PtTracker will work on any operating system that ProfitTrailer supports.
+<b>Is my setup supported?
+* Yes, PtTracker will work on any operating system that ProfitTrailer supports.
 <br><br>
-<b>Will it work with the ProfitTrailer Feeder addon?</b> Yes, PtTracker does not make any changes to your setup or files.
+<b>Will it work with the ProfitTrailer Feeder addon?
+* Yes, PtTracker does not make any changes to your setup or files.
 <br><br>
-<b>Are all base currencies are supported?</b> Yes, PtTracker will work on any base currencies that ProfitTrailer supports Ex. BTC, ETH, USDT and BNB.
+<b>Are all base currencies are supported?
+* Yes, PtTracker will work on any base currencies that ProfitTrailer supports Ex. BTC, ETH, USDT and BNB.
 <br><br>
 <b>Are all exchanges are supported?</b> Yes, PtTracker will work on any extange that ProfitTrailer supports.
 <br><br>
@@ -32,7 +35,7 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 <h1>How To Install and Configure PtTracker</h1>
 1. Change trading.logHistory in the application.properties file in your ProfitTrailer folder to prevent data removal:
 
- ```trading.logHistory = 99999999```  
+	```trading.logHistory = 99999999```  
 
 2. Extract the PtTracker.zip and move all the files directly into your ProfitTrailer Folder (same directory as profittrailer.jar and application.properties)
 
