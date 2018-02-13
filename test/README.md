@@ -22,7 +22,7 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 <br><br>
 <b>Is PtTracker officially endorsed by ProfitTrailer?</b> Not yet! However, we hope to make this happen soon. Hint hint @ProfitTrailer ;)
 <br><br>
-<b>Do you have any other questions?</b> Join our Discord and we will be happy to help you in the #pt-tracker-support channel! <b>Discord: <a href="https://discord.gg/FPXZVf" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">https://discord.gg/FPXZVf</a></b>
+<b>Do you have any other questions?</b> Join our Discord and we will be happy to help you in the  <b><a href="https://discord.gg/FPXZVf" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">#pt-tracker-support channel</a></b>
 
 
 <h1 id="#purchasing">How To Purchase</h1>
