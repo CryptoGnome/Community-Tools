@@ -76,7 +76,7 @@ set toPath=%to1Path%\YYYYMMDD_%year%%month%%day%\HHMMSS_%hour%%minute%%second%
 mkdir %toPath%\%folderPath%
 
 xcopy "%fromPath2%\config" "%toPath%\*.*" /e /h /k /s /i /f /y
-
+xcopy "%fromPath%\ProfitTrailerData.json" "%toPath%\*.*" /e /h /k /s /i /f /y
 
 REM POST BACKUP MESSAGES AND PT CRASH CHECK
 
