@@ -61,10 +61,9 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 		}
 		```
 
+<h1>How To Run PtTracker</h1>
 
-#How To Run PtTracker
-
-##Windows & Mac
+<h2>Windows & Mac</h2>
 
 1. After installing PtTracker, <a href="https://cesanta.com/binary.html">Download Mongoose (Windows / Mac)</a> and place the executable file in your ProfitTrailer Folder (same directory as profittrailer.jar and application.properties)<br>
 
