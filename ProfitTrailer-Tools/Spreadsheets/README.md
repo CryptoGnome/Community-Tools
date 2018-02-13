@@ -4,9 +4,10 @@ A collection of Spreadsheets created and curated by our community!
 
 If you want your Spreadsheet listed here please PM @A็qua⚡#0001 on Discord!
 
-# PtTracker 
+# Fully Automated PtTracker 
 
 http://pttracker.net/
+
 https://github.com/bTayFla/PtTracker
 
 # @CryptoGnome#7769 Profit Trailer Tracker
