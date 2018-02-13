@@ -34,7 +34,7 @@ PtTracker is a ProfitTrailer addon that uses the bot trading data (from the log 
 <h1>How To Install and Configure PtTracker</h1>
 1. Change trading.logHistory in the application.properties file in your ProfitTrailer folder to prevent data removal:
 
-	```trading.logHistory = 99999999```  
+	`trading.logHistory = 99999999`
 
 2. Extract the PtTracker.zip and move all the files directly into your ProfitTrailer Folder (same directory as profittrailer.jar and application.properties)
 
