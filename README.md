@@ -16,6 +16,9 @@ https://profittrailer.com/pt/CryptoGnome/
 Profit Trailer Feeder:
 https://cryptoprofitbot.com/?ref=CryptoGnome
 
+Profit Trailer Tracker:
+http://pttracker.net/?r=3
+
 Binance:
 https://www.binance.com/?ref=11615560
 
