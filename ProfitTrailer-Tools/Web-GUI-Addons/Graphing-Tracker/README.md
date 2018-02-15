@@ -14,6 +14,10 @@
 6. Paste the code in and save it, close the tab and return to your ProfitTrailer web GUI
 7. Reload the ProfitTrailer web GUI
 
+# Setup Video
+
+https://youtu.be/h78xvH5XYgo
+
 Example https://gyazo.com/4ad09dac0398a15996b95ec097428a2b
 
 # If you need any help please PM @Sokol#6328 on Discord
