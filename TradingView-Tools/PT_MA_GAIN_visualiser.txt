@@ -1,0 +1,43 @@
+//@version=3
+// Created 2018 - by @Squiggles#8806
+// LTC Tip Jar: LX4bUBdjiRPsagUbZoAczSGgDC4YqTJL7w
+//
+study("PT_MA_GAIN_Visualiser", shorttitle="PT_MA_GAINvis", overlay=true)
+
+//Variables
+AvgType = input(defval="EMA", options=["EMA", "SMA"], title="Moving Average Type?")
+SlowLen = input(24, title="Slow Length")
+FastLen = input(3, title="Fast Length")
+Trailing_Buy_Percentage = input(-0.50, title="Buy Value")
+trailBuyVal = input(0.215, title="Max Trailing Buy %") / 100
+
+// moving averages calculations
+smaSlow = sma(close,SlowLen) 
+smaFast = sma(close, FastLen) 
+emaSlow = ema(close,SlowLen) 
+emaFast = ema(close,FastLen)
+SlowMA = AvgType == "EMA" ? emaSlow : smaSlow
+FastMA = AvgType == "EMA" ? emaFast : smaFast
+
+// Calculate Trailing line
+tpLine = FastMA < SlowMA ? FastMA : SlowMA
+Trailing_Buy_Value = tpLine + (tpLine * (Trailing_Buy_Percentage / 100))
+trailLowVal = low + (low*trailBuyVal)
+
+trailBuyCond = Trailing_Buy_Percentage < 0 ? trailLowVal < Trailing_Buy_Value : Trailing_Buy_Percentage > 0 ? high > Trailing_Buy_Value : false
+trailLine = trailBuyCond and Trailing_Buy_Percentage < 0 ? trailLowVal : trailBuyCond and Trailing_Buy_Percentage > 0 ? high : Trailing_Buy_Value
+
+//buyCondChk = Trailing_Buy_Percentage < 0 ? low < Trailing_Value : Trailing_Buy_Percentage > 0 ? high > Trailing_Value : false
+bgcolor(trailBuyCond ? green : na, transp=70, title="Buy Condition Reached?")
+
+p1 = plot(trailLine, title="Trail Line", linewidth=1, color=white, transp=100, editable=false)
+p2 = plot(Trailing_Buy_Value, title="Buy Value", linewidth=1, color=white, transp=0)
+fill(p1, p2,title="Triggered zone", color= lime, transp=30)
+
+// Plot the three lines
+plot(SlowMA, title="Slow Line", linewidth=2, color=red, transp=0)
+plot(FastMA, title="Fast Line", linewidth=2, color=aqua, transp=0)
+
+//-----------------------------------------------------------------------------------
+//  I suggest changing the visual order and bring this PT_MA_GAIN_visualiser to Front.
+//-----------------------------------------------------------------------------------
