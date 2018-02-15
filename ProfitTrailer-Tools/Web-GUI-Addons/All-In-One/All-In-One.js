@@ -25,8 +25,8 @@
 	// --- the below settings are experimental... please let me know if they aren't working and you're using them.
 
 	util.testHangWarning = true; // --- true to enable hang warnings; false to disable.
-	util.hangThreshold = 10; // --- the number of ticks with an identical price that will cause a hang warning alert.
-	util.percentHanging = .5; // --- percentage of items needed to appear to hang before a warning is given
+	util.hangThreshold = 15; // --- the number of ticks with an identical price that will cause a hang warning alert.
+	util.percentHanging = .9; // --- percentage of items needed to appear to hang before a warning is given
 	util.hangWarningMessage = '{n} Prices seem to be stagnant... did the bot hang?'; // --- hang message
 
 	util.displayMarketCap = true;
