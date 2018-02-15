@@ -13,3 +13,7 @@
 5. Click on the Firefox extention that you installed (on top right) and click on "Add new script"
 6. Paste the code in and save it, close the tab and return to your ProfitTrailer web GUI
 7. Reload the ProfitTrailer web GUI
+
+# Setup Video
+
+https://youtu.be/h78xvH5XYgo
