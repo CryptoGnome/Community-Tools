@@ -14,7 +14,7 @@
 	util.drawSellThreshold = true; //draw
 	util.zeroLineColor = '#333';
 	util.sellThresholdColor = '#ff5';
-	util.graphLineColor = '#00f';
+	util.graphLineColor = '#f0f0f0';
 
 	// --- border percentages add padding to the top or bottom of the graph based on the height of the box.
 	// --- the percentages are percent out of the original max to min spread.
@@ -557,7 +557,7 @@ function estimate() {
 	//DCA
 	if ($('#dtDcaLogs thead').length > 0) {
 		if ($('#dtDcaLogs thead .est-usd').length < 1) {
-			$('#dtDcaLogs thead tr').append('<th class="text-right est-usd all sorting" rowspan="1" colspan="1" style="width: 92px;">Estimated Value</th>');
+			$('#dtDcaLogs thead tr').append('<th class="text-right est-usd all sorting" rowspan="1" colspan="1" style="width: 140px;">Estimated Value</th>');
 		};
 		$('#dtDcaLogs tbody tr').each(function() {
 			$(this).find('.est-usd').remove();
@@ -596,11 +596,11 @@ function estimate() {
 	//Pairs
 	if ($('#dtPairsLogs thead').length > 0) {
 		if ($('#dtPairsLogs thead .est-usd').length < 1) {
-			$('#dtPairsLogs thead tr').append('<th class="text-right est-usd all sorting" rowspan="1" colspan="1" style="width: 92px;">Estimated Value</th>');
-		}
+			$('#dtPairsLogs thead tr').append('<th class="text-right est-usd all sorting" rowspan="1" colspan="1" style="width: 140px;">Estimated Value</th>');
+		};
 		$('#dtPairsLogs tbody tr').each(function() {
 			$(this).find('.est-usd').remove();
-			$(this).append('<td class=" text-right est-usd all"></td>');
+			$(this).append('<td class="text-right est-usd all"></td>');
 			var num1 = $(this).find('.bought-cost').text();
 			var num2 = $(this).find('.current-value').text();
 			var calc = num2 - num1;
@@ -635,7 +635,7 @@ function estimate() {
 	//Dust
 	if ($('#dtDustLogs thead').length > 0) {
 		if ($('#dtDustLogs thead .est-usd').length < 1) {
-			$('#dtDustLogs thead tr').append('<th class="text-right est-usd all sorting" rowspan="1" colspan="1" style="width: 92px;">Estimated Value</th>');
+			$('#dtDustLogs thead tr').append('<th class="text-right est-usd all sorting" rowspan="1" colspan="1" style="width: 140px;">Estimated Value</th>');
 		}
 		$('#dtDustLogs tbody tr').each(function() {
 			$(this).find('.est-usd').remove();
@@ -670,6 +670,45 @@ function estimate() {
 		$("#dustLogDifference").prepend('<b style="color:#98a6ad;font-weight:400;margin-right:5px">($' + difference + ')</b>');
 		$("#dustLogTotalCurrentVal").prepend('<b style="color:#98a6ad;font-weight:400;margin-right:8px">($' + total + ')</b>');
 		$("#dustLogRealCost").prepend('<b style="color:#98a6ad;font-weight:400;margin-right:8px">($' + bought + ')</b>');
+	}
+	//Pending
+	if ($('#dtPendingLogs thead').length > 0) {
+		if ($('#dtPendingLogs thead .est-usd').length < 1) {
+			$('#dtPendingLogs thead tr').append('<th class="text-right est-usd all sorting" rowspan="1" colspan="1" style="width: 140px;">Estimated Value</th>');
+		};
+		$('#dtPendingLogs tbody tr').each(function() {
+			$(this).find('.est-usd').remove();
+			$(this).append('<td class="text-right est-usd all"></td>');
+			var num1 = $(this).find('.current-value').html().split("<br>")[1];
+			var num2 = $(this).find('.current-value').html().split("<br>")[0];
+			var calc = num2 - num1;
+			var btc = calc.toFixed(8);
+			var usd = btc * btc1;
+			var difference = usd.toFixed(2);
+			var sta = num2 * btc1;
+			var total = sta.toFixed(2);
+			if (difference > 0) {
+				$(this).find('.est-usd').html('<span style="color:#05b16f;"><i style="color:#98a6ad;font-style:normal;">$' + total + '</i><br>$' + difference + '</span>');
+			} else {
+				$(this).find('.est-usd').html('<span style="color:#d85353;"><i style="color:#98a6ad;font-style:normal;">$' + total + '</i><br>$' + difference + '</span>');
+			}
+		});
+		$("#pendingLogDifference").find('b').remove();
+		$("#pendingLogTotalCurrentVal").find('b').remove();
+		$("#PendingLogRealCost").find('b').remove();
+		var val = $('#pendingLogTotalCurrentVal').text();
+		var bou = $('#pendingLogRealCost').text();
+		var calc = val - bou;
+		var btc = calc.toFixed(8);
+		var est = bou * btc1;
+		var bought = est.toFixed(2);
+		var usd = btc * btc1;
+		var difference = usd.toFixed(2);
+		var sta = val * btc1;
+		var total = sta.toFixed(2);
+		$("#pendingLogDifference").prepend('<b style="color:#98a6ad;font-weight:400;margin-right:5px">($' + difference + ')</b>');
+		$("#pendingLogTotalCurrentVal").prepend('<b style="color:#98a6ad;font-weight:400;margin-right:8px">($' + total + ')</b>');
+		$("#pendingLogRealCost").prepend('<b style="color:#98a6ad;font-weight:400;margin-right:8px">($' + bought + ')</b>');
 	}
 	//Sales
 	if ($('#dtSalesLog thead').length > 0) {
@@ -713,7 +752,7 @@ function estimate() {
 $("body").on('DOMSubtreeModified', "#dvLastUpdatedOn", function() {
 	estimate();
 });
-$(".dca-log, .pairs-log, .dust-log, .sales-log").on("click", function() {
+$(".dca-log, .pairs-log, .dust-log, .sales-log, .pending-log").on("click", function() {
 	setTimeout(function() {
 		estimate();
 	}, 100);
@@ -743,12 +782,15 @@ var ConvertLogDates = {
 
 			if ($('#dtDustLogs').text() !== "")
 				_parent.convertDustLogDates();
+			
+			if ($('#dtPendingLogs').text() !== "")
+				_parent.convertPendingLogDates();
 		});
 		$("body").on('DOMSubtreeModified', "#dvCurrentUTCTime", function() {
 			_parent.convertLocalTimeToAMPM();
 		});
 
-		$(document).on("click",".dca-log, .pairs-log, .dust-log, .sales-log, th.date.all, .page-link, .page-item, .sorting_asc, .sorting_desc", function() {
+		$(document).on("click",".dca-log, .pairs-log, .dust-log, .sales-log, .pending-log, th.date.all, .page-link, .page-item, .sorting_asc, .sorting_desc", function() {
 				setTimeout(function(){
 					if ($('#dtSalesLog').text() !== "")
 						_parent.convertSalesLogDates();
@@ -758,6 +800,8 @@ var ConvertLogDates = {
 						_parent.convertPairsDates();
 					if ($('#dtDustLogs').text() !== "")
 						_parent.convertDustLogDates();
+					if ($('#dtPendingLogs').text() !== "")
+						_parent.convertPendingLogDates();
 				},100);
 		});
 	},
@@ -808,6 +852,13 @@ var ConvertLogDates = {
     convertDustLogDates: function () {
     	var _parent = this;
     	$('#dtDustLogs tbody tr').each(function() {
+    		var newDate = _parent.calcNewDate(this);
+    		$(this).find("td.date.all").text(newDate);
+		});
+    },
+    convertPendingLogDates: function () {
+    	var _parent = this;
+    	$('#dtPendingLogs tbody tr').each(function() {
     		var newDate = _parent.calcNewDate(this);
     		$(this).find("td.date.all").text(newDate);
 		});
