@@ -22,10 +22,6 @@ https://docs.google.com/spreadsheets/d/1zgrApNtPhr_BhoFxRoXi2kgEUiBJgFDVACaXP-lA
 
 https://docs.google.com/spreadsheets/d/1RAh-xjqsOQITBZmaf2ZTbPqq2aqjyKwF_kJuesaMFPc/edit?usp=sharing
 
-# @A็qua⚡#0001 Detailed Profit Trailer Tracker
-
-https://docs.google.com/spreadsheets/d/1wTf5mywtMq-vWFtpqhvbZrsZ5zYvZfGbdzp_6XJXx4Q/edit?usp=sharing
-
 # @RunJumpFly#6562 Profit Trailer Tracker
 
 https://docs.google.com/spreadsheets/d/1_Zuy2fVeZq3JjK3mGMeniTcueL8ZQnOh2azLgOkog9U/edit?usp=sharing
