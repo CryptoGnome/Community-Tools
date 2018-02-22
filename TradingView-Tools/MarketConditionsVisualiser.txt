@@ -1,0 +1,38 @@
+//@version=3
+// Created 2018 - by @Squiggles#8806
+// LTC Tip Jar: LX4bUBdjiRPsagUbZoAczSGgDC4YqTJL7w
+//
+study("Market Conditions", shorttitle="Markets") //, overlay=true
+superbearChange = input(-0.75, title="Superbear Max Change")
+bearChange = input(-0.25, title="Bear Max Change")
+boringChange = input(0.25, title="Boring Max Change")
+bullChange = input(0.75, title="Bull Max Change")
+superbullChange = input(1000.00, title="SuperBull Max Change")
+measureWindow = input(10, title="Minutes to measure")
+src = input(close, title="Price Source")
+
+startWindowPrice = security(tickerid, '1', src[measureWindow])
+endWindowPrice = src
+percChange = ((endWindowPrice - startWindowPrice)/startWindowPrice) * 100
+
+marketcolor = white
+a = if percChange < superbearChange
+	marketcolor := red
+b = if percChange >= superbearChange and percChange < bearChange
+	marketcolor := orange
+c = if percChange >= bearChange and percChange < boringChange
+	marketcolor := white
+d = if percChange >= boringChange and percChange < bullChange
+	marketcolor := aqua
+e = if percChange >= bullChange and percChange < superbullChange
+	marketcolor := lime
+
+hline(superbearChange, title = "Superbear", color=red, linestyle=solid)
+hline(bearChange, title = "Bear", color=orange, linestyle=solid)
+hline(boringChange, title = "Boring", color=white, linestyle=solid)
+hline(bullChange, title = "Bull", color=aqua, linestyle=solid)
+	
+bgcolor(marketcolor, transp=75, title="Market Condition Color?")
+plot(percChange, title="Percentage Change", color=yellow, linewidth=2, transp=0)
+
+//--------------------------------------------------------------------------------
