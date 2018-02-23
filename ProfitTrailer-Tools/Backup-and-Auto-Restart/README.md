@@ -50,7 +50,7 @@ https://www.youtube.com/watch?v=vqoR_kwHOPo
 
 # If you need any help please PM @A็qua⚡#0001 on Discord
 
-# If you found the utility useful
+# If you found the utility useful please donate!
 
 LTC: LWMMsRPXkXmB2H2f5qPJ8Tqt7h3S7SELxq
 
