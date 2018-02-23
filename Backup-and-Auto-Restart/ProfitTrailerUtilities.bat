@@ -1,16 +1,13 @@
 REM EDIT THESE IF YOU WANT TO CHANGE AMOUNT OF RAM IN MB OR THE INTERIVAL IN MIN
 set RUN_INTERVAL_IN_MINUTES=10
-set ramMB=512
-
-
-
+set ramMB=2048
 
 
 REM PRE SETUP
 set old=%cd%
 set fromPath=%cd%\ProfitTrailer
 set fromPath2=%cd%\GnomeFeeder
-set to1Path=%cd%\ProfitTrailerFeederBackup
+set to1Path=%cd%\ProfitTrailerUtilities
 
 REM START
 cls
@@ -36,16 +33,49 @@ echo java ^-jar ProfitTrailer.jar ^-XX:+UseConcMarkSweepGC ^-Xmx%ramMB%m ^-Xms%r
 del %cd%\ProfitTrailer\pccreashrecover.bat
 echo cd %old% ^& start ProfitTrailerUtilities.bat >> %old%\ProfitTrailer\pccreashrecover.bat
 
-REM MAKING EXCLUDED BACKUP
-del %cd%\ProfitTrailer\excludedfileslist.txt
-
 cd %fromPath%
 start ProfitTrailer.cmd
 cd %old%
 
-cd %fromPath2%
-start pt-feeder.bat
+cd %fromPath%
+if exist Run_Profit_Tracker.bat (
+    start Run_Profit_Tracker.bat
+) else (
+    goto A
+)
+:A
 cd %old%
+
+cd %fromPath2%
+if exist pt-feeder.bat (
+    start pt-feeder.bat
+	set feeder=true
+) else (
+    goto C
+)
+:B
+cd %old%
+
+cd %fromPath2%
+if exist ProfitTrailer-blacklist.bat (
+    start ProfitTrailer-blacklist.bat
+	goto D
+) else (
+    goto C
+)
+:C
+cd %old%
+
+cd %fromPath%
+if exist ProfitTrailer-blacklist.bat (
+    start ProfitTrailer-blacklist.bat
+) else (
+    goto D
+)
+:D
+cd %old%
+
+start "" https://github.com/CryptoGnome/Community-Tools/blob/master/ProfitTrailer-Tools/Backup-and-Auto-Restart/README.md#if-you-need-any-help-please-pm-a%%E0%%B9%%87qua0001-on-discord
 
 :start
 REM BACKUP SETTINGS
@@ -75,8 +105,14 @@ set toPath=%to1Path%\YYYYMMDD_%year%%month%%day%\HHMMSS_%hour%%minute%%second%
 
 mkdir %toPath%\%folderPath%
 
+if not %feeder%==true goto:F
 xcopy "%fromPath2%\config" "%toPath%\*.*" /e /h /k /s /i /f /y
 xcopy "%fromPath%\ProfitTrailerData.json" "%toPath%\*.*" /e /h /k /s /i /f /y
+goto G
+:F
+xcopy "%fromPath%\trading" "%toPath%\*.*" /e /h /k /s /i /f /y
+xcopy "%fromPath%\ProfitTrailerData.json" "%toPath%\*.*" /e /h /k /s /i /f /y
+:G
 
 REM POST BACKUP MESSAGES AND PT CRASH CHECK
 
@@ -85,6 +121,9 @@ cls
 echo If you need any help please PM @Aqua#0247 on Discord
 echo If you found the utility useful
 echo LTC: LWMMsRPXkXmB2H2f5qPJ8Tqt7h3S7SELxq
+echo BTC: 1HBy9MExLN31nPZaYFMqqSVrC1SmphVWCn
+echo ETH: 0x715004457357fb52b927063D3eB9DACc001b0B28
+echo BCH: qzdtqf3wl43w007uv8qj0laltuxch73qevd7k65sn8
 echo .
 echo Hello, this is the waiting for next backup screen!
 echo I'm going to back up your files again in %RUN_INTERVAL_IN_MINUTES% minutes!
