@@ -118,8 +118,8 @@ REM POST BACKUP MESSAGES AND PT CRASH CHECK
 
 cls
 @echo off
-echo If you need any help please PM @Aqua#0247 on Discord
-echo If you found the utility useful
+echo If you need any help please PM Aqua on Discord
+echo If you found the utility useful please donate!
 echo LTC: LWMMsRPXkXmB2H2f5qPJ8Tqt7h3S7SELxq
 echo BTC: 1HBy9MExLN31nPZaYFMqqSVrC1SmphVWCn
 echo ETH: 0x715004457357fb52b927063D3eB9DACc001b0B28
