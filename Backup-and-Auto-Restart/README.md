@@ -19,7 +19,7 @@ https://www.youtube.com/watch?v=vqoR_kwHOPo
 2. Make sure your folder with all the GnomeFeeder files is called "GnomeFeeder" (no space) and is located on your desktop!
 3. Download the the bat file using these steps
 
-   a. Go here https://raw.githubusercontent.com/CryptoGnome/Community-Tools/master/ProfitTrailer-Feeder-Tools/Backup-and-Auto-Restart/ProfitTrailerUtilities.bat
+   a. Go here https://raw.githubusercontent.com/CryptoGnome/Community-Tools/master/Backup-and-Auto-Restart/ProfitTrailerUtilities.bat
    
    b. Right click on the text and click save as and save it to your desktop DO NOT CHANGE ANYTHING ELSE
    
@@ -40,7 +40,7 @@ https://www.youtube.com/watch?v=vqoR_kwHOPo
 3. Make sure your folder with all the GnomeFeeder files is called "GnomeFeeder" (no space) and is located in your "BOT1" folder!
 4. Download the the bat file using these steps
 
-   a. Go here https://raw.githubusercontent.com/CryptoGnome/Community-Tools/master/ProfitTrailer-Feeder-Tools/Backup-and-Auto-Restart/ProfitTrailerUtilities.bat
+   a. Go here https://raw.githubusercontent.com/CryptoGnome/Community-Tools/master/Backup-and-Auto-Restart/ProfitTrailerUtilities.bat
    
    b. Right click on the text and click save as and save it to the "BOT1" folder
    
