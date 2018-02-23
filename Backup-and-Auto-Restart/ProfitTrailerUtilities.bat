@@ -38,8 +38,8 @@ start ProfitTrailer.cmd
 cd %old%
 
 cd %fromPath%
-if exist Run_Profit_Tracker.bat (
-    start Run_Profit_Tracker.bat
+if exist Run_PtTracker.bat (
+    start Run_PtTracker.bat
 ) else (
     goto A
 )
