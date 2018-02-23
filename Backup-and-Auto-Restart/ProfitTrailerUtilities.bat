@@ -75,7 +75,7 @@ if exist ProfitTrailer-blacklist.bat (
 :D
 cd %old%
 
-start "" https://github.com/CryptoGnome/Community-Tools/blob/master/ProfitTrailer-Tools/Backup-and-Auto-Restart/README.md#if-you-need-any-help-please-pm-a%%E0%%B9%%87qua0001-on-discord
+start "" https://github.com/CryptoGnome/Community-Tools/tree/master/Backup-and-Auto-Restart#if-you-need-any-help-please-pm-a%%E0%%B9%%87qua0001-on-discord
 
 :start
 REM BACKUP SETTINGS
