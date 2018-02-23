@@ -69,6 +69,7 @@ cd %old%
 cd %fromPath%
 if exist ProfitTrailer-blacklist.bat (
     start ProfitTrailer-blacklist.bat
+    set feeder=false
 ) else (
     goto D
 )
