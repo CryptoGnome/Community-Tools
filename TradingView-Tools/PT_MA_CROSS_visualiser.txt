@@ -3,11 +3,11 @@
 // LTC Tip Jar: LX4bUBdjiRPsagUbZoAczSGgDC4YqTJL7w
 //
 study(title="PT_MA Cross Visualiser", shorttitle = "PT_CrossVis", overlay=true)
-maFASTLen = input(8, title="Fast MA Length")
 maSLOWLen = input(21, title="Slow MA Length")
+maFASTLen = input(8, title="Fast MA Length")
 useEXP = input(false, title="Use Expontential")
 MA_Cross_Candles = input(2, title="MA Cross Candles")
-Buy_Value = input(-2, title="Buy Value")
+Buy_Value = input(-0.10, title="Buy Value")
 
 smaFast = sma(close, maFASTLen)
 smaSlow = sma(close, maSLOWLen)
