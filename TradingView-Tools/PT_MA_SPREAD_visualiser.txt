@@ -1,0 +1,66 @@
+//@version=3
+// Created 2018 - by @Squiggles
+// LTC Tip Jar: LX4bUBdjiRPsagUbZoAczSGgDC4YqTJL7w
+//
+study(title="PT_maSpread", shorttitle="PT_maSpread", overlay=true, precision=8)
+//================================================================================================
+// Define Moving Average periods
+SlowMAlen = input(title="Slow Length", type=integer, defval=55, minval=1, maxval=2000)
+FastMAlen = input(title="Fast Length", type=integer, defval=8, minval=1, maxval=2000)
+MaType = input(defval="EMA", options=["EMA", "SMA"], title="Moving Average Type?") //option to use simple or exponential
+// Define buy trigger level
+buyVal = input(-0.60, title="Buy Value %")
+//----------------------------------------------------------------------------
+// input Buy Value Limit and ensure it is correct +/- for Buy Value
+buyValLimit = input(0.00, title="Buy Value Limit %")
+corBVL = buyVal < 0 ? -1 * abs(buyValLimit) : 1 * abs(buyValLimit)
+//----------------------------------------------------------------------------
+// Calculate Trailing Buy Value
+
+maxTB = input(0.50, title="Max Trailing Buy", minval=0)  // used as trailing buy value if Auto Calculate Trailing Values is set to false
+minTB = input(0.05, title="Min Trailing Buy", minval=0)  // Used only if Auto Calculate Trailing Values is set to true
+offsetTB = input(0.00, title="Trailing Buy Offset %") / 100 // offset Trailing Buy by a percentage
+
+AutoCalc = input(defval="true",options=["true","false"],title="Auto Calculate Trailing Values") //specified in hostsettings
+MinutesToMeasure = input(30, title="Minutes to measure trend") //specified in appsettings
+PeriodsToMeasure = MinutesToMeasure/5 //converts Minutes into periods
+Divisor = input(2.0, title="Volatility Divider") //specified in hostsettings
+
+preTBDV = (sum(security(tickerid, '5', ((open-low)/open)*100),PeriodsToMeasure) / PeriodsToMeasure) / Divisor
+tbDV = preTBDV < minTB ? minTB : preTBDV > maxTB ? maxTB : preTBDV // adjust if outside min or max trailing buy
+TBval = AutoCalc == "true" ? tbDV + (tbDV * offsetTB) : maxTB + (maxTB * offsetTB)
+TBlineVAL = low + ((open - low) * TBval)
+//----------------------------------------------------------------------------
+// moving averages calculations
+smaSlow = sma(close,SlowMAlen) //p1
+smaFast = sma(close, FastMAlen) //p2
+emaSlow = ema(close,SlowMAlen) //p1
+emaFast = ema(close,FastMAlen) //p2
+p1 = MaType == "EMA" ? emaSlow : smaSlow
+p2 = MaType == "EMA" ? emaFast : smaFast
+
+// spread calculations
+sprd = ((p2/p1)-1) * 100
+sprdTrail = sprd-(sprd*(TBval))
+
+sprdTriggerVal = p1+(p1*(buyVal/100))
+sprdTriggerValLimit = corBVL == 0 ? p2 : p1+(p1*(corBVL/100))
+sprdTriggerLine = sprdTriggerVal > p2 ? sprdTriggerVal : p2
+
+TBline = sprdTriggerVal > p2 ? TBlineVAL : p2 //Trailing Buy Line
+BuyAreaColor = p2 < sprdTriggerValLimit ? red : aqua
+
+buyCondition = (sprd < buyVal and sprdTrail[1] <= buyVal and sprd >= sprdTrail[1] and sprdTrail <= buyVal) or (sprd < buyVal and sprdTrail[2] <= buyVal and sprd >= sprdTrail[2] and sprdTrail <= buyVal) or (sprd < buyVal and sprdTrail[3] <= buyVal and sprd >= sprdTrail[3] and sprdTrail <= buyVal) or (sprd < buyVal and sprdTrail[4] <= buyVal and sprd >= sprdTrail[4] and sprdTrail <= buyVal) or (sprd < buyVal and sprdTrail[5] <= buyVal and sprd >= sprdTrail[5] and sprdTrail <= buyVal) or (sprd < buyVal and sprdTrail[6] <= buyVal and sprd >= sprdTrail[6] and sprdTrail <= buyVal) or (sprd < buyVal and sprdTrail[7] <= buyVal and sprd >= sprdTrail[7] and sprdTrail <= buyVal) or (sprd < buyVal and sprdTrail[8] <= buyVal and sprd >= sprdTrail[8] and sprdTrail <= buyVal) or (sprd < buyVal and sprdTrail[9] <= buyVal and sprd >= sprdTrail[9] and sprdTrail <= buyVal)
+buyCondChk = buyCondition[1] == true ? false : buyCondition[2] == true ? false : buyCondition[3] == true ? false : buyCondition[4] == true ? false : buyCondition[5] == true ? false : buyCondition[6] == true ? false : buyCondition
+
+//----------------------------------------------------------------------------
+// Display Values
+//bgcolor(buyCondChk ? green : na, transp=40, title="Buy Condition Reached?")
+plot(p1, title="Slow Moving Average", color=red, linewidth=2, transp=0)
+f3 = plot(p2, title="Fast Moving Average", color=aqua, linewidth=2, transp=0)
+f1 = plot(sprdTriggerLine, title="Spread Trigger", color=white, linewidth=1, transp=100,editable=false)
+plot(sprdTriggerValLimit, title="Buy Value Limit", color=orange)
+f2 = plot(TBline, title="Trailing Buy Line", color=lime, transp=100, editable=false)
+fill(f1, f3,title="Buy area", color=BuyAreaColor, transp=50)
+fill(f2, f3,title="Trailing area", color=lime, transp=40)
+//================================================================================================

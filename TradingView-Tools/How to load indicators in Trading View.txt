@@ -1,0 +1,42 @@
+How to load Indicators into TradingView.
+#----------------------------------------------------------------------#
+
+At the bottom of the chart area, there are five tabs:
+"Screener", "Text Notes", "Pine Editor", "Strategy Tester" and "Trading Panel".
+Click the "Pine Editor" Tab to open it up.
+
+There you will see three lines of text:
+
+//@version=3
+study("My Script")
+plot(close)
+
+Select all three lines and delete them to get a blank space.
+
+If you dont see these three lines, create a new blank indicator script. 
+Towards the right you will see:
+
+"Open", "New", "Save", "Add to Chart", "Publish SCript" and "Help"
+
+Click "New" and at the top, select "New Blank Indicator" at the top of the list.
+Then you will see the three lines mentioned above. Delete them to get a blank space to drop the Indicator text into.
+
+Copy all the text from the indicator text file and paste it into the blank Pine Script editor window.
+
+Then click "Save", a dialog window will pop up asking you to name it, just click "Save" if you're happy with the name it suggests, otherwise give it a name.
+
+Now click "Add to Chart" that is next to "Save".
+
+#----------------------------------------------------------------------#
+
+To alter the settings, click the indicator so you see dots appear on it, then Right Click it and select "Format". 
+You can also click the cog icon next to the indicator name at the top left of the charting screen (there are five little grey icons, the second from the left is the "format settings" icon.
+You will see the Format Setting window pop up, from here you can alter the values used in the indicator.
+
+Click "OK" when your done.
+
+If you wish to save your changes for next time, at the bottom left of the format window is a drop down list that says "Default", click that and select "Save As Default"
+
+If you wish to alter the colors and/or the line widths click the "Style" tab at the top of the format window and choose your preference.
+
+#----------------------------------------------------------------------#

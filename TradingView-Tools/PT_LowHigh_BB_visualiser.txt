@@ -1,0 +1,126 @@
+//@version=3
+// Created by Squiggles 2018
+// LTC Tip Jar: LX4bUBdjiRPsagUbZoAczSGgDC4YqTJL7w
+//
+study(title="PT_LOW-HIGH BB Visualiser", shorttitle="PT_LO-HI_BB_Vis", overlay=true, precision=8)
+//================================================================================================
+// Define BB length, buy and sell values, as well as strategy
+
+BB_sma = input(20, minval=1) // BB moving average length in periods
+buy_value = input(-4.50, title="Buy value", minval=-100) // input buy value
+sell_value = input(-10.00, title="Sell value", minval=-100) // input sell value
+strat = input(defval="buy_LOWBB", options=["buy_LOWBB","buy_HIGHBB", "buy/sell_LOWBB/HIGHBB", "sell_HIGHBB"], title="Select Strategy") // select strategy
+//----------------------------------------------------------------------------
+// Calculate Trailing Values
+
+maxTB = input(0.50, title="Max Trailing Buy", minval=0)  // used as trailing buy value if Auto Calculate Trailing Values is set to false
+minTB = input(0.05, title="Min Trailing Buy", minval=0)  // Used only if Auto Calculate Trailing Values is set to true
+offsetTB = input(0.00, title="Trailing Buy Offset %") / 100 // offset Trailing Buy by a percentage
+
+maxTP = input(0.50, title="Max Trailing Profit", minval=0)  // used as trailing Profit value if Auto Calculate Trailing Values is set to false
+minTP = input(0.05, title="Min Trailing Profit", minval=0)  // Used only if Auto Calculate Trailing Values is set to true
+offsetTP = input(0.00, title="Trailing Profit Offset %") / 100 // offset Trailing Profit by a percentage
+
+AutoCalc = input(defval="true",options=["true","false"],title="Auto Calculate Trailing Values") //specified in hostsettings
+MinutesToMeasure = input(30, title="Minutes to measure trend") //specified in appsettings
+PeriodsToMeasure = MinutesToMeasure/5 //converts Minutes into periods
+Divisor = input(2.0, title="Volatility Divider") //specified in hostsettings
+
+preTBDV = (sum(security(tickerid, '5', ((open-low)/open)*100),PeriodsToMeasure) / PeriodsToMeasure) / Divisor // calculate initial downside volatility value over the MinutesToMeasure window
+preTPUV = (sum(security(tickerid, '5', ((high-open)/high)*100),PeriodsToMeasure) / PeriodsToMeasure) / Divisor // calculate initial upside volatility value over the MinutesToMeasure window
+
+tbDV = preTBDV < minTB ? minTB : preTBDV > maxTB ? maxTB : preTBDV // adjust if outside min or max trailing buy
+tpUV = preTPUV < minTP ? minTP : preTPUV > maxTP ? maxTP : preTPUV // adjust if outside min or max trailing profit
+
+TBval = AutoCalc == "true" ? tbDV + (tbDV * offsetTB) : maxTB + (maxTB * offsetTB) // decide which trailing value to use
+TPval = AutoCalc == "true" ? tpUV - (tpUV * offsetTP) : maxTP - (maxTP * offsetTP) // decide which trailing value to use
+
+TBlineVAL = low + ((open - low) * TBval) // calculate value to use as trailing line
+TPlineVAL = high - ((high - open) * TPval) // calculate value to use as trailing line
+//----------------------------------------------------------------------------
+// create the BB Bands
+
+src = close // set the source of data to the closing price
+mult = 2 // sets the standard deviation multiplier
+basis = sma(src, BB_sma) // get simple moving average over the period defined
+dev = mult * stdev(src, BB_sma) // calculate the deviation from the basis line
+upper = basis + dev // calculate the upper line
+lower = basis - dev // calculate the lower line
+//----------------------------------------------------------------------------
+// set the buy and sell variables
+
+buy_value_line = lower + (upper-lower)*(buy_value/100) // calculate the buy value line
+sell_value_line = upper - (upper-lower)*(sell_value/100) // calculate the sell value line
+ShowBuyLine = true // set initial condition
+ShowSellLine = true // set initial condition
+
+buyCondChk = false // set initial condition
+sellCondChk = false // set initial condition
+
+TBline = TBlineVAL // set trailing buy line initially to every candle
+TPline = TPlineVAL // set trailing profit line initially to every candle
+
+//----------------------------------------------------------------------------
+// determine which strategy to display and perform calculations for each
+strat1 = if strat == "buy_LOWBB"
+    buy_value_line := lower + (upper-lower)*(buy_value/100) //reset buy value line
+    TBline := TBlineVAL < buy_value_line ? TBlineVAL : buy_value_line // set trailing line based on condition
+    buyCondChk := TBlineVAL < buy_value_line // sets vertical bars to buy condition
+    
+    sell_value_line := upper - (upper-lower)*(sell_value/100) //reset sell value line - not required for this strategy
+    TPline := sell_value_line // sets trailing line to sell line
+    
+    ShowBuyLine := true // sets the visibility of this plot line
+    ShowSellLine := false // sets the visibility of this plot line
+ 
+strat2 = if strat == "buy_HIGHBB"
+    buy_value_line := upper - (upper-lower)*(buy_value/100) //reset buy value line
+    TBline := buy_value_line // sets trailing line to buy line - not required for this strategy
+    buyCondChk := high > buy_value_line // sets vertical bars to buy condition
+    
+    sell_value_line := upper - (upper-lower)*(sell_value/100) //reset sell value line - not required for this strategy
+    TPline := sell_value_line // sets trailing line to sell line - not required for this strategy
+    
+    ShowBuyLine := true // sets the visibility of this plot line
+    ShowSellLine := false // sets the visibility of this plot line
+
+strat3 = if strat == "buy/sell_LOWBB/HIGHBB"
+    buy_value_line := lower + (upper-lower)*(buy_value/100) //reset buy value line
+    TBline := TBlineVAL < buy_value_line ? TBlineVAL : buy_value_line // set trailing line based on condition
+    buyCondChk := TBlineVAL < buy_value_line // sets vertical bars to buy condition
+    
+    sell_value_line := upper - (upper-lower)*(sell_value/100) //reset sell value line - not required for this strategy
+    TPline := TPlineVAL > sell_value_line ? TPlineVAL : sell_value_line // set trailing line based on condition
+    sellCondChk := TPlineVAL > sell_value_line // sets vertical bars to sell condition
+    
+    ShowBuyLine := true // sets the visibility of this plot line
+    ShowSellLine := true // sets the visibility of this plot line
+
+strat4 = if strat == "sell_HIGHBB"
+    buy_value_line := lower + (upper-lower)*(buy_value/100) //reset buy value line - not required for this strategy
+    TBline := buy_value_line // sets trailing line to buy line
+    
+    sell_value_line := upper - (upper-lower)*(sell_value/100)  //reset sell value line
+    TPline := TPlineVAL > sell_value_line ? TPlineVAL : sell_value_line // set trailing line based on condition
+    sellCondChk := TPlineVAL > sell_value_line // sets vertical bars to sell condition
+    
+    ShowBuyLine := false // sets the visibility of this plot line
+    ShowSellLine := true // sets the visibility of this plot line
+
+//----------------------------------------------------------------------------
+// Plot all data
+bgcolor(buyCondChk ? green : na, transp=75, title="Buy Condition Reached?") // displays green vertical bar if buy condition is true
+bgcolor(sellCondChk ? red : na, transp=75, title="Sell Condition Reached?") // displays red vertical bar if sell condition is true
+plot(basis, title="50%", color=yellow, style=circles, linewidth=1, transp=0) // plots the 50% basis line (moving average)
+
+f1 = plot(TBline, title="Trailing Buy Line", color=lime, transp=100, editable=false) // plots an invisible trailing buy line to create fill boundary
+f2 = plot(ShowBuyLine ? buy_value_line : na, title="Buy Value Line", color=lime, linewidth=1, transp=0) // plots buy line
+fill(f1, f2,title="Trailing buy area", color=lime, transp=40) // fills green in between the trailing line and the buy line
+
+f4 = plot(TPline, title="Trailing Profit Line", color=lime, transp=100, editable=false) // plots an invisible trailing sell line to create fill boundary
+f3 = plot(ShowSellLine ? sell_value_line : na, title="Sell Value Line", color=red, linewidth=1, transp=0)  // plots sell line
+fill(f3, f4,title="Trailing profit area", color=red, transp=40) // fills red in between the trailing line and the sell line
+
+plot(upper, title="HIGH BB", color=white, linewidth=2, transp=0) // plots the upper BB line
+plot(lower, title="LOW BB", color=white, linewidth=2, transp=0) // plots the lower BB line
+//================================================================================================

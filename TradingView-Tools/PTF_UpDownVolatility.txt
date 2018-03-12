@@ -1,0 +1,31 @@
+//@version=3
+// Created 2018 - by @Squiggles#8806
+// LTC Tip Jar: LX4bUBdjiRPsagUbZoAczSGgDC4YqTJL7w
+//
+study("PTF_UpDown Volatility", shorttitle="PTF_UpDnVolatility", precision=2)
+// Input Minutes
+shortWindowMinutes = input(30, title="Minutes to measure trend")
+HistogramType = input(defval="VolatilityDifference", options=["VolatilityDifference", "AverageCandleSize"], title="Histogram Type?")
+// Calculate candle volatility
+UpVol = ((high - open) / open) * 100
+DnVol = ((open - low) / low) * 100
+
+// Short term Volatility
+shortWindowCandles = shortWindowMinutes/5
+shortAvgUp = sum(security(tickerid, '5', UpVol), shortWindowCandles) / shortWindowCandles
+shortAvgDn  = sum(security(tickerid, '5', DnVol), shortWindowCandles) / shortWindowCandles
+shortUpDnVolatility = HistogramType == "VolatilityDifference" ? shortAvgUp - shortAvgDn : shortAvgUp + shortAvgDn
+
+Up = shortAvgUp
+Dn = shortAvgDn
+UpDn = shortUpDnVolatility 
+
+// Plot Values
+hline(0,color=white, title="Zero Line", linewidth=1, linestyle=solid, editable=false)
+hline(1.10,color=white, title="Level 1", linewidth=1, linestyle=dotted)
+hline(0.50,color=white, title="Level 2", linewidth=1, linestyle=dotted)
+hline(0.20,color=white, title="Level 3", linewidth=1, linestyle=dotted)
+hline(-0.20,color=white, title="Level 4", linewidth=1, linestyle=dotted)
+plot(UpDn, title="Histogram", color = yellow, linewidth=1, style=area, transp=60)
+plot(Up, title="Upside Volatility", color = lime, linewidth=2, transp=0)
+plot(Dn, title="Downside Volatility", color = red, linewidth=2, transp=0)

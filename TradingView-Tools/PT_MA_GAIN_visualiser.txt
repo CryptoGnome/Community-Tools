@@ -1,0 +1,55 @@
+//@version=3
+// Created 2018 - by @Squiggles#8806
+// LTC Tip Jar: LX4bUBdjiRPsagUbZoAczSGgDC4YqTJL7w
+//
+study("PT_MA_GAIN_Visualiser", shorttitle="PT_MA_GAIN", overlay=true, precision=8)
+//================================================================================================
+// Define Moving Average periods
+SlowMAlen  = input(34, title="Slow Length")
+FastMAlen  = input(5, title="Fast Length")
+MaType  = input(defval="EMA", options=["EMA", "SMA"], title="Moving Average Type?")
+// Define buy trigger level
+buyVal = input(-0.90, title="Buy Value") / 100
+//----------------------------------------------------------------------------
+// Calculate Trailing Buy Value
+
+maxTB = input(0.50, title="Max Trailing Buy", minval=0)  // used as trailing buy value if Auto Calculate Trailing Values is set to false
+minTB = input(0.05, title="Min Trailing Buy", minval=0)  // Used only if Auto Calculate Trailing Values is set to true
+offsetTB = input(0.00, title="Trailing Buy Offset %") / 100 // offset Trailing Buy by a percentage
+
+AutoCalc = input(defval="true",options=["true","false"],title="Auto Calculate Trailing Values") //specified in hostsettings
+MinutesToMeasure = input(30, title="Minutes to measure trend") //specified in appsettings
+PeriodsToMeasure = MinutesToMeasure/5 //converts Minutes into periods - FIVE MINUTE CANDLES MUST BE USED!!!
+Divisor = input(2.0, title="Volatility Divider") //specified in hostsettings
+
+preTBDV = (sum(security(tickerid, '5', ((open-low)/open)*100),PeriodsToMeasure) / PeriodsToMeasure) / Divisor
+tbDV = preTBDV < minTB ? minTB : preTBDV > maxTB ? maxTB : preTBDV // adjust if outside min or max trailing buy
+TBval = AutoCalc == "true" ? tbDV + (tbDV * offsetTB) : maxTB + (maxTB * offsetTB)
+TBlineVAL = low + ((open - low) * TBval)
+//----------------------------------------------------------------------------
+// moving averages calculations
+smaSlow = sma(close,SlowMAlen ) 
+smaFast = sma(close, FastMAlen ) 
+emaSlow = ema(close,SlowMAlen ) 
+emaFast = ema(close,FastMAlen )
+SlowMA = MaType  == "EMA" ? emaSlow : smaSlow
+FastMA = MaType  == "EMA" ? emaFast : smaFast
+
+// Calculate Trailing line
+tpLine = FastMA < SlowMA ? FastMA : SlowMA
+Trailing_Buy_Value = tpLine + (tpLine * buyVal)
+
+trailBuyCond = buyVal < 0 ? TBlineVAL < Trailing_Buy_Value : buyVal > 0 ? high > Trailing_Buy_Value : false
+trailLine = trailBuyCond and buyVal < 0 ? TBlineVAL : trailBuyCond and buyVal > 0 ? high : Trailing_Buy_Value
+//----------------------------------------------------------------------------
+// Display Values
+bgcolor(trailBuyCond ? green : na, transp=65, title="Buy Condition Reached?")
+p1 = plot(trailLine, title="Trail Line", linewidth=1, color=white, transp=100, editable=false)
+p2 = plot(Trailing_Buy_Value, title="Buy Value", linewidth=1, color=white, transp=0)
+fill(p1, p2,title="Triggered zone", color= lime, transp=30)
+plot(SlowMA, title="Slow Line", linewidth=2, color=red, transp=0)
+plot(FastMA, title="Fast Line", linewidth=2, color=aqua, transp=0)
+//================================================================================================
+//-----------------------------------------------------------------------------------
+//  I suggest changing the visual order and bring this PT_MA_GAIN_visualiser to Front.
+//-----------------------------------------------------------------------------------

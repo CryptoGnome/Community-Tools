@@ -1,0 +1,45 @@
+//@version=3
+// Created 2018 - by @Squiggles#8806
+// LTC Tip Jar: LX4bUBdjiRPsagUbZoAczSGgDC4YqTJL7w
+//
+study("PTF_HighLowPricePercentage", shorttitle="PTF_HL_PricePercent", precision=2) // Name the study and set precision to two decimal places
+//=================================================================================================
+LongTermMinutes = input(1440, title="MinutesForLongerTermTrend") // Define Long term time window
+ShortTermMinutes = input(60, title="MinutesToMeasureTrend") // Define Short term time window
+LongTermPeriods = LongTermMinutes/5
+ShortTermPeriods = ShortTermMinutes/5
+//----------------------------------------------------------------------------------
+// Allow user to select which time frame they wish to see
+
+ShowLine = input(defval="Short", options=["Short","Long"], title="Show Time Frame") // Choose which time frame to display
+//----------------------------------------------------------------------------------
+// Calculate highLowPercentage values for both short and long term time frames
+
+ShortTermHigh = security(tickerid, '5', highest(high, ShortTermPeriods)) // Highest high of short term window
+ShortTermLow = security(tickerid, '5', lowest(low, ShortTermPeriods)) // Lowest low of short term window
+
+stFV = (ShortTermHigh - ShortTermLow) / 2 // short term First Variance
+stMV = ShortTermHigh - stFV // short term median variance
+stHLP = (close - stMV) / close *100 // short term highLowPercentage 
+
+LongTermHigh = security(tickerid, '5', highest(high, LongTermPeriods)) // Highest high of long term window
+LongTermLow = security(tickerid, '5', lowest(low, LongTermPeriods)) // Lowest low of long term window
+
+ltFV = (LongTermHigh - LongTermLow) / 2 // long term First Variance
+ltMV = LongTermHigh - ltFV // long term median variance
+ltHLP = (close - ltMV) / close *100 // long term highLowPercentage
+//----------------------------------------------------------------------------------
+// Draw horizontal levels for user
+
+hline(2.00,color=white, title="Level 1", linewidth=1, linestyle=dotted)  // draw a horizontal Line
+hline(0.90,color=white, title="Level 2", linewidth=1, linestyle=dotted)  // draw a horizontal Line
+hline(0,title="Zero Line", color=white, linewidth=1, linestyle=solid)    // draw a horizontal "Zero Line"
+hline(-0.90,color=white, title="Level 3", linewidth=1, linestyle=dotted) // draw a horizontal Line
+hline(-2.00,color=white, title="Level 4", linewidth=1, linestyle=dotted) // draw a horizontal Line
+
+//----------------------------------------------------------------------------------
+// Plot the Short or Long High Low Price Percentage lines
+plot(ShowLine == "Short" ? stHLP : na, title="High Low Price Percentage", color=aqua, linewidth=1, transp=0)
+plot(ShowLine == "Long" ? ltHLP : na, title="Long Term High Low Price Percentage", color=orange, linewidth=2, transp=0)
+//=================================================================================================
+// END OF CODE \\

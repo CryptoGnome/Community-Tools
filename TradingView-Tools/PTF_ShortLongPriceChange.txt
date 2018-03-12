@@ -1,0 +1,101 @@
+//@version=3
+// Created 2018 - by @Squiggles#8806
+// LTC Tip Jar: LX4bUBdjiRPsagUbZoAczSGgDC4YqTJL7w
+//
+study("PTF_Short and Long Term Price Change", shorttitle="PT_PriceChange", precision=2)
+//=================================================================================================
+// long term window
+
+LongTermMinutes = input(1440, title="MinutesForLongerTermTrend") // default 24hrs
+LongTermPeriods = LongTermMinutes/5
+//-----------------------------------------------------------------------------------
+// 7 levels for LongerTermPriceChange
+
+lt1PT = input(-25.00, title="Long Term Level 1")
+lt2PT = input(-10.00, title="Long Term Level 2")
+lt3PT = input(-2.00, title="Long Term Level 3")
+lt4PT = input(2.00, title="Long Term Level 4")
+lt5PT = input(10.00, title="Long Term Level 5")
+lt6PT = input(22.50, title="Long Term Level 6")
+lt7PT = input(35.00, title="Long Term Level 7")
+//----------------------------------------------------------------------------------
+// Allow user to select which time frame they wish to see
+
+ShowLine = input(defval="Short", options=["Short","Long"], title="Show Time Frame") // Choose which time frame to display
+
+//----------------------------------------------------------------------------------
+// short term window
+
+ShortTermMinutes = input(30, title="MinutesToMeasureTrend") // default 30 minutes
+ShortTermPeriods = ShortTermMinutes/5
+//-----------------------------------------------------------------------------------
+// 4 levels for PriceTrendChange (shorter term window)
+
+st1PT = input(-2.10, title="Short Term Level 1")
+st2PT = input(-0.55, title="Short Term Level 2")
+st3PT = input(0.55, title="Short Term Level 3")
+st4PT = input(1.50, title="Short Term Level 4")
+st5PT = input(3.00, title="Short Term Level 5")
+
+// Determine which set of levels to display (short or long)
+P1 = ShowLine == "Short" ? st1PT : lt1PT
+P2 = ShowLine == "Short" ? st2PT : lt2PT
+P3 = ShowLine == "Short" ? st3PT : lt3PT
+P4 = ShowLine == "Short" ? st4PT : lt4PT
+P5 = ShowLine == "Short" ? st5PT : lt5PT
+
+// these next two levels only used in Long term if required (added as extra levels if needed)
+P6 = ShowLine == "Short" ? na : lt6PT
+P7 = ShowLine == "Short" ? na : lt7PT
+
+// display chosen levels as horisontal plot lines.
+plot(P1, title="Trend Level 1", color=red)
+plot(P2, title="Trend Level 2", color=orange)
+plot(P3, title="Trend Level 3", color=aqua)
+plot(P4, title="Trend Level 4", color=lime)
+
+plot(P5, title="Trend Level 5", color=white)
+plot(P6, title="Trend Level 6", color=white)
+plot(P7, title="Trend Level 7", color=white)
+
+//-----------------------------------------------------------------------------------
+// Calculations for Price Percentage Change
+
+LongTermStart = security(tickerid, '5', close[LongTermPeriods])   // get the closing price at the begining of the long term window using 5 minute candles
+ShortTermStart = security(tickerid, '5', close[ShortTermPeriods]) // get the closing price at the begining of the short term window using 5 minute candles
+LTchange = (close - LongTermStart) / LongTermStart * 100   // determine the percentage change in price for the long term window
+STchange = (close - ShortTermStart) / ShortTermStart * 100 // determine the percentage change in price for the short term window
+
+//-----------------------------------------------------------------------------------
+// display price change line and zero line
+
+hline(0,title="Zero Line", color=white, linestyle=dotted)  // draw a horizontal "Zero Line"
+plot(ShowLine == "Short" ? STchange : na, title="Short Term Price Change", color=aqua, linewidth=2, transp=0) // display the short term price change line if selected
+plot(ShowLine == "Long" ? LTchange : na, title="Long Term Price Change", color=orange, linewidth=2, transp=0) // display the long term price change line if selected
+
+//=================================================================================================
+// Base Coin Section
+
+ShowBase = input(false, title="Show Base Coin Background Color?") // option to display background color representing Base coin
+BaseCoin = input('BINANCE:ETHUSDT', type=symbol) // default base coin is ETHUSDT on Binance
+//-----------------------------------------------------------------------------------
+// 5 different levels of market condition based on MinBaseCoinPriceChange
+
+BaseLevel_1 = input(-1000, title="Base Level SuperBear")
+BaseLevel_2 = input(-0.90, title="Base Level Bear")
+BaseLevel_3 = input(-0.30, title="Base Level Boring")
+BaseLevel_4 = input(0.30, title="Base Level Bull")
+BaseLevel_5 = input(0.90, title="Base Level Superbull")
+
+//-----------------------------------------------------------------------------------
+// Calculations for Price Percentage Change
+
+BaseStart = security(BaseCoin,'5', close[ShortTermPeriods]) // get the base coin closing price at the begining of the short term window using 5 minute candles 
+BaseCurrent = security(BaseCoin,'5', close) // get the current base coin closing price using 5 minute candles 
+BCchange = (BaseCurrent - BaseStart) / BaseStart * 100
+BaseColorBackground = BCchange > BaseLevel_5 ? lime : BCchange > BaseLevel_4 ? aqua : BCchange > BaseLevel_3 ? white : BCchange > BaseLevel_2 ? orange : BCchange > BaseLevel_1 ? red : na
+
+// if selected, display background color based on base coin price percentage change
+bgcolor(ShowBase ? BaseColorBackground : na, transp=70, title="Base Coin Color Background")
+//=================================================================================================
+// END OF CODE \\
