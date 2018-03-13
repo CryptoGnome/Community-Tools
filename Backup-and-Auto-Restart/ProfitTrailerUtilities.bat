@@ -7,6 +7,7 @@ REM PRE SETUP
 set old=%cd%
 set fromPath=%cd%\ProfitTrailer
 set fromPath2=%cd%\GnomeFeeder
+set fromPath3=%cd%\PtTracker
 set to1Path=%cd%\ProfitTrailerUtilities
 
 REM START
@@ -37,9 +38,9 @@ cd %fromPath%
 start ProfitTrailer.cmd
 cd %old%
 
-cd %fromPath%
-if exist Run_PtTracker.bat (
-    start Run_PtTracker.bat
+cd %frompath3%
+if exist PtTracker.exe (
+    start PtTracker.exe
 ) else (
     goto A
 )
