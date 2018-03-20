@@ -38,8 +38,8 @@ cd %fromPath%
 start ProfitTrailer.cmd
 cd %old%
 
-cd %frompath3%
-if exist PtTracker.exe (
+if exist "%frompath3%" (
+    cd %frompath3%
     start PtTracker.exe
 ) else (
     goto A
@@ -47,8 +47,9 @@ if exist PtTracker.exe (
 :A
 cd %old%
 
-cd %fromPath2%
-if exist pt-feeder.bat (
+
+if exist "%fromPath2%" (
+    cd %fromPath2%
     start pt-feeder.bat
 	set feeder=true
 ) else (
@@ -66,11 +67,10 @@ if exist ProfitTrailer-blacklist.bat (
 )
 :C
 cd %old%
-
+set feeder=false
 cd %fromPath%
 if exist ProfitTrailer-blacklist.bat (
     start ProfitTrailer-blacklist.bat
-    set feeder=false
 ) else (
     goto D
 )
@@ -108,11 +108,11 @@ set toPath=%to1Path%\YYYYMMDD_%year%%month%%day%\HHMMSS_%hour%%minute%%second%
 mkdir %toPath%\%folderPath%
 
 if not %feeder%==true goto:F
-xcopy "%fromPath2%\config" "%toPath%\*.*" /e /h /k /s /i /f /y
+xcopy "%fromPath2%\config" "%toPath%\config\*.*" /e /h /k /s /i /f /y
 xcopy "%fromPath%\ProfitTrailerData.json" "%toPath%\*.*" /e /h /k /s /i /f /y
 goto G
 :F
-xcopy "%fromPath%\trading" "%toPath%\*.*" /e /h /k /s /i /f /y
+xcopy "%fromPath%\trading" "%toPath%\trading\*.*" /e /h /k /s /i /f /y
 xcopy "%fromPath%\ProfitTrailerData.json" "%toPath%\*.*" /e /h /k /s /i /f /y
 :G
 
