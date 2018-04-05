@@ -1,5 +1,5 @@
 # PtRemote Telegram
-https://github.com/Fransenson/PT_Notifier
+https://github.com/Fransenson/PyT_Notifier
 
 # If you need any help please PM @Fransenson#5625 on Discord
 
