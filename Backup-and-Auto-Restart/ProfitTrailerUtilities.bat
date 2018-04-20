@@ -55,16 +55,7 @@ if exist "%fromPath2%" (
 ) else (
     goto C
 )
-:B
-cd %old%
 
-cd %fromPath2%
-if exist ProfitTrailer-blacklist.bat (
-    start ProfitTrailer-blacklist.bat
-	goto D
-) else (
-    goto C
-)
 :C
 cd %old%
 set feeder=false
@@ -108,12 +99,11 @@ set toPath=%to1Path%\YYYYMMDD_%year%%month%%day%\HHMMSS_%hour%%minute%%second%
 mkdir %toPath%\%folderPath%
 
 if not %feeder%==true goto:F
-xcopy "%fromPath2%\config" "%toPath%\config\*.*" /e /h /k /s /i /f /y
-xcopy "%fromPath%\ProfitTrailerData.json" "%toPath%\*.*" /e /h /k /s /i /f /y
+xcopy "%fromPath2%\config" "%toPath%\config\*.*" /h /k /s /i /f /y
+xcopy "%fromPath%\ProfitTrailerData.json" "%toPath%\*.*" /h /k /s /i /f /y
 goto G
 :F
-xcopy "%fromPath%\trading" "%toPath%\trading\*.*" /e /h /k /s /i /f /y
-xcopy "%fromPath%\ProfitTrailerData.json" "%toPath%\*.*" /e /h /k /s /i /f /y
+xcopy "%fromPath%\ProfitTrailerData.json" "%toPath%\*.*" /h /k /s /i /f /y
 :G
 
 REM POST BACKUP MESSAGES AND PT CRASH CHECK
