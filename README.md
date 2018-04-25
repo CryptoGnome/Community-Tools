@@ -8,7 +8,7 @@ If you want your Community Tool listed here please PM @A็qua⚡#0001 on Discor
 
 These tools were not made by the official PT or PTF teams! If you have any issues they are not responsable and WILL NOT be providing support for these tools in their discord! If you need support contact the creator of each tool using their provided discord name or create an issue on the github! Use them at your own risk!
 
-## Please help support the Discord and support members by using any of our affiliate links below!
+## Want to Support The Discord? Use any of Our Affilaite Links Below!
 
 ProfitTrailer:
 https://profittrailer.com/pt/CryptoGnome/ 
