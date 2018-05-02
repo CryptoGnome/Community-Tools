@@ -113,7 +113,7 @@ cls
 echo If you need any help please PM Aqua on Discord
 echo If you found the utility useful please donate!
 echo LTC: LWMMsRPXkXmB2H2f5qPJ8Tqt7h3S7SELxq
-echo BTC: 1HBy9MExLN31nPZaYFMqqSVrC1SmphVWCn
+echo BTC: 3K4Hu2Ba5HNm38JB8evvs1TAUDqPF8My6h
 echo ETH: 0x715004457357fb52b927063D3eB9DACc001b0B28
 echo BCH: qzdtqf3wl43w007uv8qj0laltuxch73qevd7k65sn8
 echo .
