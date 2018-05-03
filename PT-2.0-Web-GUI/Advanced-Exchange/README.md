@@ -21,8 +21,8 @@ https://youtu.be/h78xvH5XYgo
 Example https://gyazo.com/67e9b935a1385691c892a015e5769e2f
 Example https://gyazo.com/b68bf819eb80dafe13cdf1d6ea36cc38
 
-# If you need any help please PM @rireal#2742 on Discord
+# If you need any help please PM @FS#2607 on Discord
 
 # If you found the utility useful
 
-LTC: LL9jV5UBVPVGS5GUtGV8SemwZYHGq99ND1
+LTC: Ld9K3CrNgy6yWBCH52ehZgigiFU3LR8SGr
