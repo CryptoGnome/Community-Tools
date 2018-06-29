@@ -33,3 +33,6 @@ https://tradingview.go2cloud.org/aff_c?offer_id=2&aff_id=9584
 
 CoinBase (Get $10 Free):
 https://www.coinbase.com/join/596e0bae9fb680020742d903
+
+Kucoin:
+https://www.kucoin.com/#/?r=N7cdeM
