@@ -1,3 +1,5 @@
+# These may no longer work! If you wish to help update them please contact me!
+
 # Web-GUI-Addons
 
 A collection of Web GUI Addons created and curated by our community!
